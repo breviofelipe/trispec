@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
+import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
 import PersonagensWidget from "scenes/widgets/PersonagensWidget";
 import TaskSWidget from "scenes/widgets/TasksWidget";
@@ -72,6 +73,7 @@ const SpectaclePage = () => {
           <Box flexBasis="26%">
               {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
             <Box m="2rem 0" />
+            <AdvertWidget />
           </Box>
         )}
       </Box>
