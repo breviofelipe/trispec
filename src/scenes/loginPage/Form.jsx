@@ -15,6 +15,9 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import LoadingComponent from "components/Loading";
+
+
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -48,6 +51,7 @@ const initialValuesLogin = {
 };
 
 const Form = () => {
+  const [loading, setLoading] = useState(false);
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
   const dispatch = useDispatch();
@@ -80,12 +84,14 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
+    setLoading(true);
     const loggedInResponse = await fetch("https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
     const loggedIn = await loggedInResponse.json();
+
     onSubmitProps.resetForm();
     if (loggedIn) {
       dispatch(
@@ -94,6 +100,7 @@ const Form = () => {
           token: loggedIn.token,
         })
       );
+      setLoading(false)
       navigate("/home");
     }
   };
@@ -104,7 +111,8 @@ const Form = () => {
   };
 
   return (
-    <Formik
+    <div>
+      {loading ? <LoadingComponent /> : <Formik
       onSubmit={handleFormSubmit}
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
@@ -270,7 +278,8 @@ const Form = () => {
         </form>
       )}
     </Formik>
+    }
+    </div>
   );
-};
-
+  }
 export default Form;

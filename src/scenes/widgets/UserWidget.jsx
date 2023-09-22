@@ -12,8 +12,10 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import LoadingComponent from "components/Loading";
 
 const UserWidget = ({ userId, picturePath }) => {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
@@ -23,16 +25,25 @@ const UserWidget = ({ userId, picturePath }) => {
   const main = palette.neutral.main;
 
   const getUser = async () => {
+    
     const response = await fetch(`https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await response.json();
-    setUser(data);
+    }).then(async (data) => {
+      // const data = await response.json();
+      setUser(await data.json());
+    }).then(() => setLoading(false))
+    
   };
 
   useEffect(() => {
     getUser();
+    setLoading(true);
+    setTimeout(() => {
+      if( user ){
+        setLoading(false);
+      }
+    }, 2000);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
@@ -49,7 +60,8 @@ const UserWidget = ({ userId, picturePath }) => {
     friends,
   } = user;
 
-  return (
+  return (<div>
+    { loading ? <WidgetWrapper><LoadingComponent /></WidgetWrapper> : 
     <WidgetWrapper>
       {/* FIRST ROW */}
       <FlexBetween
@@ -73,7 +85,7 @@ const UserWidget = ({ userId, picturePath }) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            {friends && <Typography color={medium}>{friends.length} friends</Typography>}
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />
@@ -146,7 +158,8 @@ const UserWidget = ({ userId, picturePath }) => {
         </FlexBetween>
       </Box>
     </WidgetWrapper>
-  );
+}
+  </div>  );
 };
 
 export default UserWidget;
