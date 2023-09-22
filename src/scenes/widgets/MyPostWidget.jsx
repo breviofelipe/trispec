@@ -38,8 +38,8 @@ const MyPostWidget = ({ picturePath }) => {
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
   
-  // const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
-  const url = 'http://localhost:5000';
+  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+  // const url = 'http://localhost:5000';
   
   
   const getBase64FromUrl = (image) => {
