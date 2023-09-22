@@ -24,10 +24,12 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
+import LoadingComponent from "components/Loading";
           
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [post, setPost] = useState("");
@@ -62,16 +64,15 @@ const MyPostWidget = ({ picturePath }) => {
       dispatch(setPosts({ posts }));
       setImage(null);
       setPost("");
+      setLoading(false);
    };
    reader.onerror = function (error) {
      console.log('Error: ', error);
-     return "";
-   };
+    };
   }
   
   const handlePost = async () => {
-
-    let picturePath = '';
+    setLoading(true);
     if (image) {
       getBase64FromUrl(image);    
     } else {
@@ -89,11 +90,12 @@ const MyPostWidget = ({ picturePath }) => {
       const posts = await response.json();
       dispatch(setPosts({ posts }));
       setPost("");
+      setLoading(false)
     }    
   };
 
-  return (
-    <WidgetWrapper>
+  return (<div>
+    { loading ? <WidgetWrapper><LoadingComponent /></WidgetWrapper> : <WidgetWrapper>
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
         <InputBase
@@ -201,7 +203,9 @@ const MyPostWidget = ({ picturePath }) => {
           POST
         </Button>
       </FlexBetween>
-    </WidgetWrapper>
+    </WidgetWrapper>}
+  </div>
+    
   );
 };
 

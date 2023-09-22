@@ -1,6 +1,6 @@
 .loader-container {
     display: flex;
-    height: 30vh;
+    /* height: 30vh; */
     justify-content: center;
     align-items: center;
     z-index: 1;
