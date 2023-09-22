@@ -3,13 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
 import PostWidget from "./PostWidget";
 
+const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+// const url = 'http://localhost:5000';
+
+
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch("https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/posts", {
+    const response = await fetch(url+"/posts", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -19,7 +23,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/posts/${userId}/posts`,
+      url+`/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -39,7 +43,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   return (
     <>
-       { posts?.lenght > 0 && posts.map(
+       {Array.isArray(posts) &&  posts.map(
         ({
           id,
           userId,

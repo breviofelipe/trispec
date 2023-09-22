@@ -21,9 +21,10 @@ import FlexBetween from "components/FlexBetween";
 import Dropzone from "react-dropzone";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "state";
+          
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -36,25 +37,59 @@ const MyPostWidget = ({ picturePath }) => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
-
+  
+  // const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+  const url = 'http://localhost:5000';
+  
+  
+  const getBase64FromUrl = (image) => {
+  var reader = new FileReader();
+   reader.readAsDataURL(image);
+   reader.onload = async function () {
+     picturePath = image.name;
+      const body = {
+        file: reader.result,
+        userId: id,
+        description: post,
+        picturePath: picturePath
+      }
+      const response = await fetch(url+`/posts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(body),
+      });
+      const posts = await response.json();
+      dispatch(setPosts({ posts }));
+      setImage(null);
+      setPost("");
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+     return "";
+   };
+  }
+  
   const handlePost = async () => {
-    const formData = new FormData();
-    formData.append("userId", id);
-    formData.append("description", post);
-    if (image) {
-      formData.append("picture", image);
-      formData.append("picturePath", image.name);
-    }
 
-    const response = await fetch(`https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/posts`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    });
-    const posts = await response.json();
-    dispatch(setPosts({ posts }));
-    setImage(null);
-    setPost("");
+    let picturePath = '';
+    if (image) {
+      getBase64FromUrl(image);    
+    } else {
+      const body = {
+        file: '',
+        userId: id,
+        description: post,
+        picturePath: ''
+      }
+      const response = await fetch(url+`/posts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify(body),
+      });
+      const posts = await response.json();
+      dispatch(setPosts({ posts }));
+      setPost("");
+    }    
   };
 
   return (
