@@ -5,7 +5,8 @@ import { FaTheaterMasks } from 'react-icons/fa';
 const Masks = ({     
     quantidade: quantidadeAntiga,
     editavel = false,
-    grande = false
+    grande = false,
+    setNovaQuantidade
  }) => {
     const [quantidade, setQuantidade] = useState(quantidadeAntiga);
     const tamanho = grande ? 24 : 16;
@@ -22,7 +23,9 @@ const Masks = ({
             listMasks.push(
                 <IconButton
                     key={i}
-                    onClick={() => setQuantidade(i)}
+                    onClick={() => {
+                        setQuantidade(i)
+                    }}
                     disabled={!editavel}
                     >
                     {getMask(i)}
@@ -30,6 +33,9 @@ const Masks = ({
             );
         }
         return listMasks;
+    }
+    if(setNovaQuantidade){
+        setNovaQuantidade(quantidade);
     }
     return RenderMasks();
  };

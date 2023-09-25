@@ -130,12 +130,6 @@
 .dna:nth-child(30){
     animation-delay: -2.9s;
 }
-.dna:nth-child(31){
-    animation-delay: -3.0s;
-}
-.dna:nth-child(32){
-    animation-delay: -3.1s;
-}
 
 @keyframes rotate-1 {
     0%

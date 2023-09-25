@@ -19,7 +19,6 @@ const ActorPage = () => {
   const actorId = searchparams.get("actorId");
   const actorUserPicturePath = searchparams.get("actorUserPicturePath");
   const turmaId = searchparams.get("turmaId");
-  const picturePath = useSelector((state) => state.user.picturePath);
   const turmas = useSelector((state) => state.turmas);
   const [atores, setAtores] = useState();
   const getAtoresTurma = () => {
@@ -49,7 +48,7 @@ const ActorPage = () => {
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           {/* <TurmaPostWidget picturePath={picturePath} />  */}
-          <FormMasks />
+          <FormMasks actorId={actorId} />
           <Box m="2rem 0" />
             <TurmaWidget turmaId={turmaId} />      
           <Box m="2rem 0" />

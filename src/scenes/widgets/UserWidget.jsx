@@ -168,9 +168,12 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
             >
               {user.nome} {user.sobrenome}
             </Typography>
-              <FlexBetween gap="1rem">
+              <FlexBetween gap="0.5rem">
                 <Typography color={medium}><Masks quantidade={user.estrelas} /></Typography>
               </FlexBetween>
+                <FlexBetween gap="0.5rem">
+                  {user && user.opnions && <Typography color={medium}>{user.opnions.length} opniões</Typography> }
+                </FlexBetween>
           </Box>
         </FlexBetween>
         {myProfile && <ManageAccountsOutlined />}

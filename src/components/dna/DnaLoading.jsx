@@ -33,8 +33,8 @@ const DnaLoading = () => {
         <span className='dna'></span>
         <span className='dna'></span>
         <span className='dna'></span>
-        <span className='dna'></span>
-        <span className='dna'></span>
+        {/* <span className='dna'></span>
+        <span className='dna'></span> */}
     </div>
 }
 
