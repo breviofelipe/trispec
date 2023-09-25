@@ -1,8 +1,6 @@
 import {
   ManageAccountsOutlined,
   EditOutlined,
-  WorkOutlineOutlined,
-  Masks,
 } from "@mui/icons-material";
 import { FaTheaterMasks } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi'
@@ -13,8 +11,8 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoadingComponent from "components/Loading";
 import PersonagemWidget from "./PersonagenWidget";
+import DnaLoading from "components/dna/DnaLoading";
 
 const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
   const [user, setUser] = useState(null);
@@ -264,7 +262,7 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
-    return <WidgetWrapper><LoadingComponent /></WidgetWrapper>;
+    return <WidgetWrapper><DnaLoading /></WidgetWrapper>;
   }
 
   const {

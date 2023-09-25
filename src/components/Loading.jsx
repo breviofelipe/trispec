@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import './Loading.css';
 
 const LoadingComponent = () => {
-    return  <Box>
+    return <Box>
         <div className="loader-container">
           <div className="spinner"></div>
       </div>

@@ -40,11 +40,11 @@ const AdvertWidget = () => {
       <FlexBetween>
       <ins className="adsbygoogle"
           data-full-width-responsive="true"
-          style={{ width: "100%", height: "auto" }}
-          data-ad-layout-key="-fb+5w+4e-db+86"
+          style={{ width: "100%", height: "auto", display: "block" }}
           data-ad-client="ca-pub-4527229097839562"
           data-ad-slot="3059510317"
-          data-adtest="on"></ins>     
+          data-ad-format="auto"
+          ></ins>     
       </FlexBetween>
     </WidgetWrapper>
   );
