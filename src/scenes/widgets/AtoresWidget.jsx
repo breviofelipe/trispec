@@ -26,31 +26,33 @@ const AtoresWidget = ({ listaAtores }) => {
       fontWeight="500"
       sx={{ mb: "1.5rem" }}
     >
-      Atores
+      Coletivo
     </Typography>
     <Box display="flex" flexDirection="column" gap="1.5rem"> 
     { atores && atores.map(
         ({
-            _id,
+            id,
             turmaId,
             nome,
             sobrenome,
             personagens,
-            __v,
             userPicturePath,
-            createdAt,
-            updatedAt
+            estrelas,
+            pontualidade,
+            trabalhoEquipe,
+            criatividade
           }) => (
           <AtorWidget
-            id={_id}
+            id={id}
             turmaId={turmaId}
             nome={nome}
             sobrenome={sobrenome}
             personagens={personagens}
-            __v={__v}
             userPicturePath={userPicturePath}
-            createdAt={createdAt}
-            updatedAt={updatedAt}
+            estrelas={estrelas}
+            pontualidade={pontualidade}
+            trabalhoEquipe={trabalhoEquipe}
+            criatividade={criatividade}  
           />
         )
       )

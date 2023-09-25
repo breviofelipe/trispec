@@ -4,35 +4,22 @@ import FlexBetween from "components/FlexBetween";
   
 import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
-import UserImage from "components/UserImage";
-import FriendListWidget from "./FriendListWidget";
-import AtoresWidget from "./AtoresWidget";
-import PersonagensWidget from "./PersonagensWidget";
-import TaskSWidget from "./TasksWidget";
 import { useNavigate, createSearchParams } from "react-router-dom";
   
   
-  const TurmaWidget = ({
-    id,
+  const TurmaWidget = ({  
     turmaId,
-    atores,
-    espetaculo,
-    __v,
-    createdAt,
-    updatedAt
   }) => {
 
   const { palette } = useTheme();
-  const main = palette.neutral.main;
-  const primary = palette.primary.main;
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const turmas = useSelector((state) => state.turmas);
   const navigate = useNavigate();
   const [espetaculoInfo, setEstaculo] = useState();
-  const { _id, picturePath } = useSelector((state) => state.user);
+  const { id, picturePath } = useSelector((state) => state.user);
   const getEspetaculo = () => {
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
@@ -52,7 +39,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
         onClick={() => { 
           console.log("click")
           navigate({
-            pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId, 'userId': _id, 'picturePath': picturePath}).toString()
+            pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId, 'userId': id, 'picturePath': picturePath}).toString()
           })
         }}
       >
@@ -80,12 +67,6 @@ import { useNavigate, createSearchParams } from "react-router-dom";
        </FlexBetween>
 
       <Divider />
-      {/* {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
-      
-      <Divider />
-      {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
-      
-      <TaskSWidget /> */}
       <img
           width="100%"
           height="auto"

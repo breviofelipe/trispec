@@ -37,7 +37,7 @@ const TurmasWidget = () => {
           }) => (
           <TurmaWidget
             key={id}
-            id={id}
+            idTurma={id}
             turmaId={turmaId}
             atores={atores}
             espetaculo={espetaculo}
