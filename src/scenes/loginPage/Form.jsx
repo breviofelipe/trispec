@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
-import LoadingComponent from "components/Loading";
+import LoadingComponent from "components/loading/Loading";
 
 
 

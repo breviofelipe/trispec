@@ -13,12 +13,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonagemWidget from "./PersonagenWidget";
 import DnaLoading from "components/dna/DnaLoading";
+import Masks from "components/masks/Masks";
 
-const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
+const UserWidget = ({ userId, picturePath, actorProfile }) => {
   const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
+  const myProfile = useSelector((state) => state.user.id) === userId;
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
@@ -33,7 +35,6 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
       headers: { Authorization: `Bearer ${token}` },
     }).then(async (data) => {
       const actor = await data.json();
-      console.log(actor);
       setUser(actor);
     });
     } else {
@@ -45,14 +46,6 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
       });
     }
   };
-
-  const masks = (qtd) => {
-    let res = [];
-    for(let i=0; i<qtd; i++){
-      res.push(<FaTheaterMasks size={18} fontSize="large" sx={{ color: main }} />)
-    }
-    return res;
-  }
 
   const profileUser = () => {
     return <WidgetWrapper>
@@ -81,7 +74,7 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
             {friends && <Typography color={medium}>{friends.length} friends</Typography>}
           </Box>
         </FlexBetween>
-        <ManageAccountsOutlined />
+        {myProfile && <ManageAccountsOutlined />}
       </FlexBetween>
 
       <Divider />
@@ -134,7 +127,7 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
               <Typography color={medium}>Social Network</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {myProfile && <EditOutlined sx={{ color: main }} /> }
         </FlexBetween>
 
         <FlexBetween gap="1rem">
@@ -147,7 +140,7 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
               <Typography color={medium}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {myProfile && <EditOutlined sx={{ color: main }} /> }
         </FlexBetween>
       </Box>
     </WidgetWrapper>
@@ -158,7 +151,6 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={() => navigate(`/profile/${userId}`)}
       >
         <FlexBetween gap="1rem">
           <UserImage image={picturePath} />
@@ -177,11 +169,11 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
               {user.nome} {user.sobrenome}
             </Typography>
               <FlexBetween gap="1rem">
-                <Typography color={medium}>{masks(user.estrelas)}</Typography>
+                <Typography color={medium}><Masks quantidade={user.estrelas} /></Typography>
               </FlexBetween>
           </Box>
         </FlexBetween>
-        <ManageAccountsOutlined />
+        {myProfile && <ManageAccountsOutlined />}
       </FlexBetween>
 
       <Divider />
@@ -191,19 +183,19 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
         <Box display="flex" justifyContent="space-between" >
         <Typography color={medium}>Criatividade </Typography>
           <FlexBetween>
-          { masks(user.criatividade)}
+            <Masks quantidade={user.criatividade} />
           </FlexBetween>
         </Box>
         <Box display="flex" justifyContent="space-between" >
           <Typography color={medium}>Pontualidade </Typography>
          <FlexBetween>
-         { masks(user.pontualidade) }
+          <Masks quantidade={user.pontualidade} />
          </FlexBetween>
         </Box>
         <Box display="flex" justifyContent="space-between" >
           <Typography color={medium}>Trabalho em equipe </Typography>
           <FlexBetween>
-          { masks(user.trabalhoEquipe)}
+            <Masks quantidade={user.trabalhoEquipe} />
           </FlexBetween>
         </Box>
       </Box>
@@ -238,7 +230,7 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
               <Typography color={medium}>Social Network</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          { myProfile && <EditOutlined sx={{ color: main }} /> }
         </FlexBetween>
 
         <FlexBetween gap="1rem">
@@ -251,7 +243,7 @@ const UserWidget = ({ userId, picturePath, actorProfile, estrelas }) => {
               <Typography color={medium}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          { myProfile && <EditOutlined sx={{ color: main }} /> }
         </FlexBetween>
       </Box>
     </WidgetWrapper>

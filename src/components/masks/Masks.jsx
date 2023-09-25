@@ -1,0 +1,37 @@
+import { useState } from 'react';
+import './Masks.css';
+import { IconButton, useTheme } from '@mui/material';
+import { FaTheaterMasks } from 'react-icons/fa';
+const Masks = ({     
+    quantidade: quantidadeAntiga,
+    editavel = false,
+    grande = false
+ }) => {
+    const [quantidade, setQuantidade] = useState(quantidadeAntiga);
+    const tamanho = grande ? 24 : 16;
+    const { palette } = useTheme();
+    const getMask = (index) =>{
+        if ( index <= quantidade){
+            return <FaTheaterMasks size={tamanho} color={palette.neutral.dark} />;
+        }
+        return <FaTheaterMasks size={tamanho} color={palette.neutral.medium} />;
+    }
+    const RenderMasks = () => {
+        const listMasks = [];
+        for( let i = 1; i <= 5; i++){
+            listMasks.push(
+                <IconButton
+                    key={i}
+                    onClick={() => setQuantidade(i)}
+                    disabled={!editavel}
+                    >
+                    {getMask(i)}
+                </IconButton>
+            );
+        }
+        return listMasks;
+    }
+    return RenderMasks();
+ };
+
+ export default Masks;

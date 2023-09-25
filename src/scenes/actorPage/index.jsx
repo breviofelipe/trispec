@@ -1,18 +1,15 @@
 import { Box, useMediaQuery } from "@mui/material";
-import LoadingComponent from "components/Loading";
-import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect, useState } from "react";
-import { act } from "react-dom/test-utils";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
-import PersonagemWidget from "scenes/widgets/PersonagenWidget";
 import TaskSWidget from "scenes/widgets/TasksWidget";
 import TurmaPostWidget from "scenes/widgets/TurmaPostWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import FormMasks from "./Form";
 
 
 const ActorPage = () => {
@@ -51,7 +48,8 @@ const ActorPage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <TurmaPostWidget picturePath={picturePath} /> 
+          {/* <TurmaPostWidget picturePath={picturePath} />  */}
+          <FormMasks />
           <Box m="2rem 0" />
             <TurmaWidget turmaId={turmaId} />      
           <Box m="2rem 0" />
