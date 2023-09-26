@@ -30,7 +30,15 @@ const LoginPage = () => {
         </Typography>
         <Form />
       </Box>
+      <ins className="adsbygoogle"
+          data-full-width-responsive="true"
+          style={{ width: "100%", height: "auto", display: "block" }}
+          data-ad-client="ca-pub-4527229097839562"
+          data-ad-slot="6609002383"
+          data-ad-format="auto"
+          ></ins>
     </Box>
+    
   );
 };
 
