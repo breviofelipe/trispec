@@ -53,7 +53,7 @@ const ActorPage = () => {
           <FormMasks actorId={actorId} />
           <Box m="2rem 0" />
             
-            {atores && <AtoresWidget listaAtores={atores.atores} />}
+          {isNonMobileScreens && atores && <AtoresWidget listaAtores={atores.atores} />}
           <Box m="2rem 0" />
             {/* <TaskSWidget /> */}
 
