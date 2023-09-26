@@ -21,15 +21,17 @@ const ActorPage = () => {
   const turmaId = searchparams.get("turmaId");
   const turmas = useSelector((state) => state.turmas);
   const [atores, setAtores] = useState();
-  const getAtoresTurma = () => {
+
+  
+  const getAtualizaAtor = () => {
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
       setAtores(data[0]);
     }
   };
   useEffect(() => {
-    getAtoresTurma();
-  },[])
+    getAtualizaAtor();
+  },[searchparams])
 
   return (<Box>
       <Navbar />
@@ -50,16 +52,16 @@ const ActorPage = () => {
           {/* <TurmaPostWidget picturePath={picturePath} />  */}
           <FormMasks actorId={actorId} />
           <Box m="2rem 0" />
-            <TurmaWidget turmaId={turmaId} />      
+            
+            {atores && <AtoresWidget listaAtores={atores.atores} />}
           <Box m="2rem 0" />
-            <TaskSWidget />
+            {/* <TaskSWidget /> */}
 
             {!isNonMobileScreens && (
                 <Box flexBasis="26%">
-                  <TaskSWidget />
-                  <Box m="2rem 0" />
-                  <TaskSWidget />     
-                          
+                  {atores && <AtoresWidget listaAtores={atores.atores} />}           
+                  <Box m="2rem 0" />             
+                  <TurmaWidget turmaId={turmaId} />
                 </Box>
               )}
             
@@ -68,7 +70,7 @@ const ActorPage = () => {
          
         {isNonMobileScreens && (
           <Box flexBasis="26%">
-            {atores && <AtoresWidget listaAtores={atores.atores} />}
+            <TurmaWidget turmaId={turmaId} />      
             <Box m="2rem 0" />
             <AdvertWidget />
           </Box>

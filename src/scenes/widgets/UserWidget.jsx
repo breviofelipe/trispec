@@ -30,6 +30,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
   const getUser = async () => {
     
     if(actorProfile){   
+     setUser(null);
      const response = await fetch(url+`/actors/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
@@ -38,6 +39,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
       setUser(actor);
     });
     } else {
+      setUser(null);
       const response = await fetch(url+`/users/${userId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -254,7 +256,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
 
   useEffect(() => {
     getUser();  
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
     return <WidgetWrapper><DnaLoading /></WidgetWrapper>;
