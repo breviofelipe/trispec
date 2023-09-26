@@ -23,6 +23,7 @@ const AtorWidget = ({
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
   const navigate = useNavigate();
+  
   return (<FlexBetween>
   <FlexBetween gap="1rem">
     <UserImage image={userPicturePath} size="55px" />
@@ -48,7 +49,7 @@ const AtorWidget = ({
         {nome} {sobrenome}
       </Typography>
       {personagens && personagens.map((personagem) => {
-        return  <Typography color={medium} fontSize="0.75rem">
+        return  <Typography key={personagem.id} color={medium} fontSize="0.75rem">
                   {personagem.nome}
                 </Typography>
         }

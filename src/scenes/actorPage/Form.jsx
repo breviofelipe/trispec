@@ -1,6 +1,8 @@
 import { EditOutlined } from "@mui/icons-material";
 import WidgetWrapper from "components/WidgetWrapper";
+import LoadingComponent from "components/loading/Loading";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const { Box, Typography, useTheme, Divider, Button } = require("@mui/material")
 const { default: FlexBetween } = require("components/FlexBetween")
@@ -16,6 +18,8 @@ const FormMasks = ({ actorId }) => {
     const [quantidadeEquipe, setQuantidadeEquipe] = useState(5);
     const userId = useSelector((state) => state.user.id);
     const token = useSelector((state) => state.token);
+    const [enviando, setEnviando] = useState(false);
+    const navigate = useNavigate()
     const postOpnion = async () =>{
       {      
         let body = {
@@ -25,17 +29,29 @@ const FormMasks = ({ actorId }) => {
           'pontualidade' : quantidadePontualidade,
           'criatividade' : quantidadeCriatividade
         };
+        setEnviando(true)
         const response = await fetch("https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/actors/opinion", {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           body: JSON.stringify(body),
         });
-        const res = response.json();
+        const res = await response.json();
         console.log(res);
+        if(res){
+          setEnviando(false)
+          navigate(0);
+        }
         setGrande(false)
       }
     }
-    return <WidgetWrapper>
+
+    if(!actorId){
+      return null;
+    }
+
+
+    return <div>
+      {enviando ? <WidgetWrapper><LoadingComponent /></WidgetWrapper> : <WidgetWrapper>
     <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
         Deixe sua opnião!
     </Typography>
@@ -76,6 +92,7 @@ const FormMasks = ({ actorId }) => {
         </Button> : <EditOutlined onClick={() => setGrande(!grande)} sx={{ color: main }} />}
     </FlexBetween>
     </Box>
-    </WidgetWrapper>
+    </WidgetWrapper>}
+    </div>
 }
 export default FormMasks;

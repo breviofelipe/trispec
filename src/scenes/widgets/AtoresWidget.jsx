@@ -43,6 +43,7 @@ const AtoresWidget = ({ listaAtores }) => {
             criatividade
           }) => (
           <AtorWidget
+            key={id}
             id={id}
             turmaId={turmaId}
             nome={nome}

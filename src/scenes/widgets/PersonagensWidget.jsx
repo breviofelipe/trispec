@@ -15,20 +15,13 @@ const PersonagensWidget = ({ listaPersonagens }) => {
     let novoArray = [];
     const corte = isNonMobileScreens ? 2 : 1;
     const lista = personagens.map(
-      ({
-          _id,
+      ({  id,
           nome,
           espetaculoId,
-          __v,
-          createdAt,
-          updatedAt
         }) => (<PersonagemWidget
-          id={_id}
+          id={id}
           nome={nome}
           espetaculoId={espetaculoId}
-          __v={__v}
-          createdAt={createdAt}
-          updatedAt={updatedAt}
         />)
     );
 

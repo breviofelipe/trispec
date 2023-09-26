@@ -20,10 +20,7 @@ const AdvertWidget = () => {
             window.adsbygoogle.push({});
             console.log("Ads push");
             console.log(window.adsbygoogle);
-          } else {
-            console.log("pushed before");
-            console.log(window.adsbygoogle);
-          }
+          } 
         } else {
           scriptElement.addEventListener("load", handleScriptLoad);
           console.log("waiting until adsense lib loaded")
@@ -34,7 +31,6 @@ const AdvertWidget = () => {
     }
     handleScriptLoad();
 },[]);
-
   
   return (<WidgetWrapper>
       <FlexBetween>
@@ -48,7 +44,7 @@ const AdvertWidget = () => {
           data-full-width-responsive="true"
           style={{ width: "100%", height: "auto", display: "block" }}
           data-ad-client="ca-pub-4527229097839562"
-          data-ad-slot="3059510317"
+          data-ad-slot="6609002383"
           data-ad-format="auto"
           ></ins>     
       </FlexBetween>
