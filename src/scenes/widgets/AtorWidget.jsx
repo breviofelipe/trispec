@@ -2,6 +2,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
+import Masks from "components/masks/Masks";
 import { createSearchParams, useNavigate } from "react-router-dom";
 
 const AtorWidget = ({
@@ -55,6 +56,7 @@ const AtorWidget = ({
         }
       )
       }
+      <Typography color={medium} fontSize="0.75rem"><Masks quantidade={estrelas} /></Typography>
     </Box>
   </FlexBetween>
 </FlexBetween>);
