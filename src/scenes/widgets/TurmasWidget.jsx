@@ -28,10 +28,16 @@ const TurmasWidget = () => {
     <> { turmas.map(
         ({
             id,
-         }) => (
+            turmaId,
+            atores,
+            espetaculo,
+          }) => (
           <TurmaWidget
             key={id}
-            idTurma={id}  
+            idTurma={id}
+            turmaId={turmaId}
+            atores={atores}
+            espetaculo={espetaculo}
           />
         )
       )
