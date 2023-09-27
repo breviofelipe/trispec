@@ -73,7 +73,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
             >
               {firstName} {lastName}
             </Typography>
-            {friends && <Typography color={medium}>{friends.length} friends</Typography>}
+            <Typography color={medium}>{location}</Typography>
           </Box>
         </FlexBetween>
         {myProfile && <ManageAccountsOutlined />}
@@ -98,13 +98,13 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
       {/* THIRD ROW */}
       <Box p="1rem 0">
         <FlexBetween mb="0.5rem">
-          <Typography color={medium}>Who's viewed your profile</Typography>
+          <Typography color={medium}>Visualizações</Typography>
           <Typography color={main} fontWeight="500">
             {viewedProfile}
           </Typography>
         </FlexBetween>
         <FlexBetween>
-          <Typography color={medium}>Impressions of your post</Typography>
+          <Typography color={medium}>Espetáculos</Typography>
           <Typography color={main} fontWeight="500">
             {impressions}
           </Typography>

@@ -5,8 +5,6 @@ import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
-import TaskSWidget from "scenes/widgets/TasksWidget";
-import TurmaPostWidget from "scenes/widgets/TurmaPostWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/UserWidget";
 import FormMasks from "./Form";

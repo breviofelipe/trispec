@@ -18,7 +18,7 @@ import { Typography, useTheme } from "@mui/material";
       const response = await fetch(`https://hidden-beach-56074-0fd939fd2f6c.herokuapp.com/task/consultar`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          //Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         }
       });
@@ -30,7 +30,7 @@ import { Typography, useTheme } from "@mui/material";
         getTasks();
     }, []);
   
-    return (<WidgetWrapper m="2rem 0">
+    return (<WidgetWrapper>
       <Typography
               variant="h4"
               color={dark}

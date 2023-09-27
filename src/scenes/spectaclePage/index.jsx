@@ -17,6 +17,7 @@ const SpectaclePage = () => {
   const [ searchparams ] = useSearchParams();
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const turmas = useSelector((state) => state.turmas);
+  const role = useSelector((state) => state.user.role);
   const [espetaculoInfo, setEstaculo] = useState();
   const turmaId = searchparams.get("turmaId");
   const userId = searchparams.get("userId");
@@ -44,19 +45,19 @@ const SpectaclePage = () => {
         justifyContent="center"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-            
-            <TurmaWidget turmaId={turmaId} />
-            <Box m="2rem 0" />
+            {!isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
             {isNonMobileScreens &&  <UserWidget userId={userId} picturePath={picturePath} /> }
-            </Box>
+            {isNonMobileScreens && <Box m="2rem 0" /> }
+            <TurmaWidget turmaId={turmaId} />
+        </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
           {/* <MyPostWidget picturePath={picturePath} /> */}
-          <TurmaPostWidget picturePath={picturePath} />
-          <Box m="2rem 0" />
+          {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
             <TaskSWidget />
+            <Box m="2rem 0" />
             {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
             {!isNonMobileScreens && (
                 <Box flexBasis="26%">
@@ -67,7 +68,6 @@ const SpectaclePage = () => {
               )}
             
           </Box>
-          
          
         {isNonMobileScreens && (
           <Box flexBasis="26%">

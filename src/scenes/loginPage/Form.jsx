@@ -16,7 +16,7 @@ import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
 import LoadingComponent from "components/loading/Loading";
-
+import Alert from '@mui/material/Alert';
 
 
 const registerSchema = yup.object().shape({
@@ -59,6 +59,7 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+  const [warning, setWarning] = useState();
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -90,18 +91,32 @@ const Form = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
-    const loggedIn = await loggedInResponse.json();
+     try {
+      
+      const status = loggedInResponse.status;
+      
+      if(status === 200){
+      
+        const loggedIn = await loggedInResponse.json();
 
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
-      setLoading(false)
-      navigate("/home");
+        onSubmitProps.resetForm();
+        if (loggedIn) {
+          dispatch(
+            setLogin({
+              user: loggedIn.user,
+              token: loggedIn.token,
+            })
+          );
+          setLoading(false)
+          navigate("/home");
+        } 
+      } else {
+        setLoading(false)
+        setWarning("email ou senha errado!")
+        }
+    } catch (err) {
+        setLoading(false)
+        console.log(err);
     }
   };
 
@@ -112,7 +127,10 @@ const Form = () => {
 
   return (
     <div>
-      {loading ? <LoadingComponent /> : <Formik
+      {loading ? <LoadingComponent /> : 
+      <div>
+        { warning && <Alert  severity="warning">{warning}</Alert> }
+        <Formik
       onSubmit={handleFormSubmit}
       initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
       validationSchema={isLogin ? loginSchema : registerSchema}
@@ -278,7 +296,8 @@ const Form = () => {
         </form>
       )}
     </Formik>
-    }
+        </div>
+          }
     </div>
   );
   }
