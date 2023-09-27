@@ -30,10 +30,7 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {role && role === "ADMIN" && <div>
-          <MyPostWidget picturePath={picturePath} />
-          <Box m="2rem 0" />
-          </div>}
+          {role && role === "ADMIN" && <div> <MyPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
           <TurmasWidget />
           <Box m="2rem 0" />
           <FriendListWidget userId={id} />

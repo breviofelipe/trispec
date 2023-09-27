@@ -37,7 +37,6 @@ import { useNavigate, createSearchParams } from "react-router-dom";
         gap="0.5rem"
         pb="1.1rem"
         onClick={() => { 
-          console.log("click")
           navigate({
             pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId, 'userId': id, 'picturePath': picturePath}).toString()
           })
