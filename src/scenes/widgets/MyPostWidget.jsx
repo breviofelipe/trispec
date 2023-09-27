@@ -95,7 +95,7 @@ const MyPostWidget = ({ picturePath }) => {
   };
 
   return (<div>
-    { loading ? <WidgetWrapper><LoadingComponent /></WidgetWrapper> : <WidgetWrapper>
+    { loading ? <WidgetWrapper><LoadingComponent /></WidgetWrapper> : <><WidgetWrapper>
       <FlexBetween gap="1.5rem">
         <UserImage image={picturePath} />
         <InputBase
@@ -203,7 +203,9 @@ const MyPostWidget = ({ picturePath }) => {
           POST
         </Button>
       </FlexBetween>
-    </WidgetWrapper>}
+    </WidgetWrapper>
+    <Box m="2rem 0" /></>
+    }
   </div>
     
   );

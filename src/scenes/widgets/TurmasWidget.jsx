@@ -26,8 +26,7 @@ const TurmasWidget = () => {
 
   return (
     <> { turmas.map(
-        ({
-            id,
+        ({  id,
             turmaId,
             atores,
             espetaculo,
