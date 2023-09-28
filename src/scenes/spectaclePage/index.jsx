@@ -1,4 +1,5 @@
 import { Box, useMediaQuery } from "@mui/material";
+import YoutubeEmbed from "components/youtube/YoutubeEmbed";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -10,6 +11,7 @@ import TaskSWidget from "scenes/widgets/TasksWidget";
 import TurmaPostWidget from "scenes/widgets/TurmaPostWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import YoutubeWidget from "scenes/widgets/posts/youtube/YoutubeWidget";
 import { setTurma } from "state";
 
 
@@ -61,6 +63,9 @@ const SpectaclePage = () => {
         >
           {/* <MyPostWidget picturePath={picturePath} /> */}
           {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
+
+            {/* <YoutubeEmbed embedId={'QxtigSvGnD8'} /> */}
+            <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'teste'} />
             {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
             <Box m="2rem 0" />
             <TaskSWidget />
@@ -68,7 +73,6 @@ const SpectaclePage = () => {
                 <Box flexBasis="26%">
                   <Box m="2rem 0" />
                     {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
-                  
                 </Box>
               )}
             

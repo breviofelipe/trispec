@@ -15,6 +15,7 @@ import {
     IconButton,
     useMediaQuery,
   } from "@mui/material";
+  import AddTaskIcon from '@mui/icons-material/AddTask';
   import FlexBetween from "components/FlexBetween";
   import Dropzone from "react-dropzone";
   import UserImage from "components/UserImage";
@@ -22,8 +23,7 @@ import {
   import { useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "state";
-  import { FcTodoList } from 'react-icons/fc'
-  import { FaTheaterMasks } from 'react-icons/fa'
+  import { FaTheaterMasks } from 'react-icons/fa';
   const TurmaPostWidget = ({ picturePath }) => {
     const dispatch = useDispatch();
     const [isImage, setIsImage] = useState(false);
@@ -133,7 +133,7 @@ import {
           {isNonMobileScreens ? (
             <>
               <FlexBetween gap="0.25rem">
-                <FcTodoList sx={{ color: mediumMain }} />
+                <AddTaskIcon sx={{ color: mediumMain }} />
                 <Typography color={mediumMain}>Tarefas</Typography>
               </FlexBetween>
   
