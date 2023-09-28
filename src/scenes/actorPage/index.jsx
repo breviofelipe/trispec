@@ -15,21 +15,17 @@ const ActorPage = () => {
   const [ searchparams ] = useSearchParams();
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const actorId = searchparams.get("actorId");
-  const actorUserPicturePath = searchparams.get("actorUserPicturePath");
-  const turmaId = searchparams.get("turmaId");
-  const turmas = useSelector((state) => state.turmas);
-  const [atores, setAtores] = useState();
-
+  const [actorUserPicturePath, setActorUserPicturePath] = useState();
+  const [actorOpnions, setActorOpnions] = useState();
+  const turma = useSelector((state) => state.turma);
   
-  const getAtualizaAtor = () => {
-    const data = turmas.filter((turma) => turma.turmaId === turmaId);
-    if(data !== undefined){
-      setAtores(data[0]);
-    }
-  };
-  useEffect(() => {
-    getAtualizaAtor();
-  },[searchparams])
+    useEffect(() => {
+      const ator = turma.atores.filter((ator) => ator.id === actorId)[0];
+      const picture = ator.userPicturePath;
+      setActorUserPicturePath(picture);
+      const opnions = ator.opnions;
+      setActorOpnions(opnions);
+  },[searchparams, turma])
 
   return (<Box>
       <Navbar />
@@ -47,28 +43,20 @@ const ActorPage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {/* <TurmaPostWidget picturePath={picturePath} />  */}
-          <FormMasks actorId={actorId} />
+          <FormMasks actorId={actorId} opnions={actorOpnions}/>
+          {isNonMobileScreens && <AtoresWidget listaAtores={turma.atores} />}
           <Box m="2rem 0" />
-            
-          {isNonMobileScreens && atores && <AtoresWidget listaAtores={atores.atores} />}
-          <Box m="2rem 0" />
-            {/* <TaskSWidget /> */}
-
             {!isNonMobileScreens && (
                 <Box flexBasis="26%">
-                  {atores && <AtoresWidget listaAtores={atores.atores} />}           
+                  <AtoresWidget listaAtores={turma.atores} />
                   <Box m="2rem 0" />             
-                  <TurmaWidget turmaId={turmaId} />
+                  <TurmaWidget turmaId={turma.turmaId} />
                 </Box>
               )}
-            
-          </Box>
-          
-         
+          </Box>      
         {isNonMobileScreens && (
           <Box flexBasis="26%">
-            <TurmaWidget turmaId={turmaId} />      
+            <TurmaWidget turmaId={turma.turmaId} />      
             <Box m="2rem 0" />
             <AdvertWidget />
           </Box>

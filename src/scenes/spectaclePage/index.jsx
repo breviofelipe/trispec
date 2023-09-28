@@ -1,6 +1,6 @@
 import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
@@ -10,6 +10,7 @@ import TaskSWidget from "scenes/widgets/TasksWidget";
 import TurmaPostWidget from "scenes/widgets/TurmaPostWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import { setTurma } from "state";
 
 
 const SpectaclePage = () => {
@@ -22,11 +23,14 @@ const SpectaclePage = () => {
   const turmaId = searchparams.get("turmaId");
   const userId = searchparams.get("userId");
   const picturePath = searchparams.get("picturePath");
+  const dispatch = useDispatch();
 
   const getEspetaculo = () => {
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
       setEstaculo(data[0]);
+      
+      dispatch(setTurma({ turma: data[0] }));
     }
   };
 
@@ -56,9 +60,9 @@ const SpectaclePage = () => {
         >
           {/* <MyPostWidget picturePath={picturePath} /> */}
           {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
-            <TaskSWidget />
-            <Box m="2rem 0" />
             {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
+            <Box m="2rem 0" />
+            <TaskSWidget />
             {!isNonMobileScreens && (
                 <Box flexBasis="26%">
                   <Box m="2rem 0" />

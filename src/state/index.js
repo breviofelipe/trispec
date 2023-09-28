@@ -7,7 +7,9 @@ const initialState = {
   token: null,
   posts: [],
   tasks: [],
-  turmas: []
+  turmas: [],
+  turma: null,
+  ator: null
 };
 
 export const authSlice = createSlice({
@@ -48,9 +50,20 @@ export const authSlice = createSlice({
     setTurmas: (state, action) => {
       state.turmas = action.payload.turmas;
     },
+    setTurma: (state, action) => {
+      state.turma = action.payload.turma;
+    },
+    setAtor: (state, action) => {
+      state.ator = action.payload.ator;
+      const atoresUpdated = state.turma.atores.map((ator) => {
+        if (ator.id === action.payload.ator.id) return action.payload.ator;
+        return ator;
+      });
+      state.turma.atores = atoresUpdated;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost, setTasks, setTurmas } =
+export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost, setTasks, setTurmas, setTurma, setAtor } =
   authSlice.actions;
 export default authSlice.reducer;

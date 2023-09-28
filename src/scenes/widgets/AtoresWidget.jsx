@@ -4,9 +4,8 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { Box, Typography, useTheme } from "@mui/material";
 
 const AtoresWidget = ({ listaAtores }) => {
-    // console.log("AtoresWidget turmaId="+turmaId);
+    
   const { palette } = useTheme();
-//   const token = useSelector((state) => state.token);
   const [ atores, setAtores ] =  useState();
 
   const getAtores = () => {

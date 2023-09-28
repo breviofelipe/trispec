@@ -31,7 +31,7 @@ const AtorWidget = ({
     <Box
       onClick={() => { 
         navigate({
-          pathname:`/ator/`, search: createSearchParams({ 'actorId': id, 'actorUserPicturePath': userPicturePath, 'turmaId': turmaId }).toString()
+          pathname:`/ator/`, search: createSearchParams({ 'actorId': id }).toString()
         })
         console.log("click id"+turmaId)
       }}

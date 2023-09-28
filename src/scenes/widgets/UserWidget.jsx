@@ -21,6 +21,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
   const myProfile = useSelector((state) => state.user.id) === userId;
+  const ator = useSelector((state) => state.ator);
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
@@ -256,7 +257,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
 
   useEffect(() => {
     getUser();  
-  }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userId, ator]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
     return <WidgetWrapper><DnaLoading /></WidgetWrapper>;

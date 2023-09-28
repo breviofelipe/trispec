@@ -1,14 +1,15 @@
 import { EditOutlined } from "@mui/icons-material";
 import WidgetWrapper from "components/WidgetWrapper";
 import LoadingComponent from "components/loading/Loading";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setAtor } from "state";
 
 const { Box, Typography, useTheme, Divider, Button } = require("@mui/material")
 const { default: FlexBetween } = require("components/FlexBetween")
 const { default: Masks } = require("components/masks/Masks");
-const { useState } = require("react");
-const FormMasks = ({ actorId }) => {
+const { useState, useEffect } = require("react");
+const FormMasks = ({ actorId, opnions }) => {
     const { palette } = useTheme();
     const medium = palette.neutral.medium;
     const main = palette.neutral.main;
@@ -20,6 +21,8 @@ const FormMasks = ({ actorId }) => {
     const token = useSelector((state) => state.token);
     const [enviando, setEnviando] = useState(false);
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+    
     const postOpnion = async () =>{
       {      
         let body = {
@@ -36,22 +39,30 @@ const FormMasks = ({ actorId }) => {
           body: JSON.stringify(body),
         });
         const res = await response.json();
+        setEnviando(false)
         console.log(res);
-        if(res){
-          setEnviando(false)
-          navigate(0);
-        }
         setGrande(false)
+        dispatch(setAtor({ ator: res }));
       }
     }
+  
 
     if(!actorId){
       return null;
     }
-
+    if(opnions){
+      console.log(opnions);
+      console.log(userId);
+      const userOp = opnions.filter((op) => op === userId);
+      if(userOp.length > 0){
+        console.log("opnion posted")
+        return null;
+      }
+    } else return null;
+  
 
     return <div>
-      {enviando ? <WidgetWrapper><LoadingComponent /></WidgetWrapper> : <WidgetWrapper>
+      {enviando ? <div><WidgetWrapper><LoadingComponent /></WidgetWrapper><Box m="2rem 0" /></div> : <div><WidgetWrapper>
     <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
         Deixe sua opnião!
     </Typography>
@@ -92,7 +103,9 @@ const FormMasks = ({ actorId }) => {
         </Button> : <EditOutlined onClick={() => setGrande(!grande)} sx={{ color: main }} />}
     </FlexBetween>
     </Box>
-    </WidgetWrapper>}
+    </WidgetWrapper>
+    <Box m="2rem 0" />
+        </div>}
     </div>
 }
 export default FormMasks;
