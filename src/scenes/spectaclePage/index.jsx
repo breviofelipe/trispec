@@ -65,7 +65,7 @@ const SpectaclePage = () => {
           {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
 
             {/* <YoutubeEmbed embedId={'QxtigSvGnD8'} /> */}
-            <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'teste'} />
+            <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
             {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
             <Box m="2rem 0" />
             <TaskSWidget />

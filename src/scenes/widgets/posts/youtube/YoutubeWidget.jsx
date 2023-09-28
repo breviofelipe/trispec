@@ -8,8 +8,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
     FavoriteBorderOutlined,
     FavoriteOutlined,
-    ShareOutlined,
   } from "@mui/icons-material";
+import StarIcon from '@mui/icons-material/Star';
 import { useState } from "react";
 
 const YoutubeWidget = ({ embedId, picturePath, description, subtitle, likes = false }) => {
@@ -53,7 +53,7 @@ const YoutubeWidget = ({ embedId, picturePath, description, subtitle, likes = fa
                 </FlexBetween>
             </FlexBetween>
             <IconButton>
-                <ShareOutlined />
+                <StarIcon sx={{ color: primary }} />
             </IconButton>
       </FlexBetween>
     </WidgetWrapper>
