@@ -20,6 +20,7 @@ const ActorPage = () => {
   const turma = useSelector((state) => state.turma);
   
     useEffect(() => {
+      window.scrollTo(0,0);
       const ator = turma.atores.filter((ator) => ator.id === actorId)[0];
       const picture = ator.userPicturePath;
       setActorUserPicturePath(picture);

@@ -26,6 +26,7 @@ const SpectaclePage = () => {
   const dispatch = useDispatch();
 
   const getEspetaculo = () => {
+    window.scrollTo(0,0);
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
       setEstaculo(data[0]);
