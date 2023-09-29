@@ -3,7 +3,7 @@ import AtorWidget from "./AtorWidget";
 import WidgetWrapper from "components/WidgetWrapper";
 import { Box, Typography, useTheme } from "@mui/material";
 
-const AtoresWidget = ({ listaAtores }) => {
+const AtoresWidget = ({ listaAtores, isMobile = false }) => {
     
   const { palette } = useTheme();
   const [ atores, setAtores ] =  useState();
@@ -18,7 +18,7 @@ const AtoresWidget = ({ listaAtores }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <><WidgetWrapper>
+    <><WidgetWrapper isMobile={isMobile}>
     <Typography
       color={palette.neutral.dark}
       variant="h5"

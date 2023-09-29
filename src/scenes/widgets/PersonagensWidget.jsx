@@ -4,7 +4,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 
-const PersonagensWidget = ({ listaPersonagens }) => {
+const PersonagensWidget = ({ listaPersonagens, isMobile = false }) => {
 
   const { palette } = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -35,7 +35,7 @@ const PersonagensWidget = ({ listaPersonagens }) => {
   }
 
   return (
-    <><WidgetWrapper>
+    <><WidgetWrapper isMobile={isMobile}>
     <Typography
       color={palette.neutral.dark}
       variant="h4"

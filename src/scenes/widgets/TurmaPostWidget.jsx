@@ -24,7 +24,7 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "state";
   import { FaTheaterMasks } from 'react-icons/fa';
-  const TurmaPostWidget = ({ picturePath }) => {
+  const TurmaPostWidget = ({ picturePath, isMobile = false }) => {
     const dispatch = useDispatch();
     const [isImage, setIsImage] = useState(false);
     const [image, setImage] = useState(null);
@@ -57,7 +57,7 @@ import {
     };
   
     return (
-      <WidgetWrapper>
+      <WidgetWrapper isMobile={isMobile}>
         <FlexBetween gap="1.5rem">
           <UserImage image={picturePath} />
           <InputBase

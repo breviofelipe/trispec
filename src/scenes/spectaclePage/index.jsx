@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, Divider, useMediaQuery } from "@mui/material";
 import YoutubeEmbed from "components/youtube/YoutubeEmbed";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,56 +37,84 @@ const SpectaclePage = () => {
     }
   };
 
+  const nonMobile = () => {
+    return <Box>
+    <Navbar />
+    <Box
+      width="100%"
+      padding="2rem 6%"
+      display={isNonMobileScreens ? "flex" : "block"}
+      gap="2rem"
+      justifyContent="center"
+    >
+      <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+          {!isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
+          {isNonMobileScreens &&  <UserWidget userId={userId} picturePath={picturePath} /> }
+          {isNonMobileScreens && <Box m="2rem 0" /> }
+          <TurmaWidget turmaId={turmaId} />
+      </Box>
+      <Box
+        flexBasis={isNonMobileScreens ? "42%" : undefined}
+        mt={isNonMobileScreens ? undefined : "2rem"}
+      >
+        {/* <MyPostWidget picturePath={picturePath} /> */}
+        {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
+
+          {/* <YoutubeEmbed embedId={'QxtigSvGnD8'} /> */}
+          <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
+
+          {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
+          <Box m="2rem 0" />
+          <TaskSWidget />
+        </Box>
+       
+      {isNonMobileScreens && (
+        <Box flexBasis="26%">
+            {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
+          <Box m="2rem 0" />
+          <AdvertWidget />
+        </Box>
+      )}
+    </Box>
+  </Box>
+  }
+
+  const mobile = () => {
+    return <Box>
+    <Navbar />
+    <Box
+      width="100%"
+      display={ "block" }
+      gap="2rem"
+      justifyContent="center"
+    >
+      <Box>
+          { role === 'ADMIN' && <div><Divider /><TurmaPostWidget isMobile={true} picturePath={picturePath} /><Divider /></div>}
+          <TurmaWidget isMobile={true} turmaId={turmaId} />
+      </Box>
+      <Divider />
+      <Box>
+          <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
+          <Divider />
+          {espetaculoInfo && <PersonagensWidget isMobile={true} listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
+          <Divider />
+          <TaskSWidget />
+              <Box flexBasis="26%">
+                <Divider />
+                  {espetaculoInfo && <AtoresWidget  isMobile={true} listaAtores={espetaculoInfo.atores} />} 
+                  <Divider />
+                  <AdvertWidget />
+              </Box>         
+        </Box>
+      </Box>
+  </Box>
+  }
   useEffect(() => {
     getEspetaculo();
   },[])
 
-  return (
-    <Box>
-      <Navbar />
-      <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap="2rem"
-        justifyContent="center"
-      >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-            {!isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
-            {isNonMobileScreens &&  <UserWidget userId={userId} picturePath={picturePath} /> }
-            {isNonMobileScreens && <Box m="2rem 0" /> }
-            <TurmaWidget turmaId={turmaId} />
-        </Box>
-        <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
-        >
-          {/* <MyPostWidget picturePath={picturePath} /> */}
-          {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
-
-            {/* <YoutubeEmbed embedId={'QxtigSvGnD8'} /> */}
-            <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
-            {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
-            <Box m="2rem 0" />
-            <TaskSWidget />
-            {!isNonMobileScreens && (
-                <Box flexBasis="26%">
-                  <Box m="2rem 0" />
-                    {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
-                </Box>
-              )}
-            
-          </Box>
-         
-        {isNonMobileScreens && (
-          <Box flexBasis="26%">
-              {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
-            <Box m="2rem 0" />
-            <AdvertWidget />
-          </Box>
-        )}
-      </Box>
-    </Box>
+  return (<>{isNonMobileScreens ? nonMobile() : mobile()}</>
+    
   );
 };
 

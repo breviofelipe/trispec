@@ -11,6 +11,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
   
   const TurmaWidget = ({  
     turmaId,
+    isMobile = false
   }) => {
 
   const { palette } = useTheme();
@@ -32,7 +33,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
   },[])
 
     return (
-      <WidgetWrapper m="0 0">
+      <WidgetWrapper m="0 0" isMobile={isMobile}>
         <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
