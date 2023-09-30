@@ -23,8 +23,8 @@ import {
   import { useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "state";
-  import { FaTheaterMasks } from 'react-icons/fa';
-  const TurmaPostWidget = ({ picturePath, isMobile = false }) => {
+  import YouTubeIcon from '@mui/icons-material/YouTube';
+  const TurmaPostWidget = ({ picturePath }) => {
     const dispatch = useDispatch();
     const [isImage, setIsImage] = useState(false);
     const [image, setImage] = useState(null);
@@ -35,7 +35,7 @@ import {
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;
-  
+      
     const handlePost = async () => {
       const formData = new FormData();
       formData.append("userId", _id);
@@ -57,7 +57,7 @@ import {
     };
   
     return (
-      <WidgetWrapper isMobile={isMobile}>
+      <WidgetWrapper isMobile={!isNonMobileScreens}>
         <FlexBetween gap="1.5rem">
           <UserImage image={picturePath} />
           <InputBase
@@ -133,19 +133,18 @@ import {
           {isNonMobileScreens ? (
             <>
               <FlexBetween gap="0.25rem">
-                <AddTaskIcon sx={{ color: mediumMain }} />
-                <Typography color={mediumMain}>Tarefas</Typography>
+                <YouTubeIcon sx={{ color: mediumMain }} />
+                <Typography color={mediumMain}>Youtube</Typography>
               </FlexBetween>
-  
               <FlexBetween gap="0.25rem">
                 <AttachFileOutlined sx={{ color: mediumMain }} />
                 <Typography color={mediumMain}>Documentos</Typography>
               </FlexBetween>
-  
               <FlexBetween gap="0.25rem">
-                <FaTheaterMasks sx={{ color: mediumMain }} />
-                <Typography color={mediumMain}>Personagens</Typography>
+                <AddTaskIcon sx={{ color: mediumMain }} />
+                <Typography color={mediumMain}>Tarefas</Typography>
               </FlexBetween>
+  
             </>
           ) : (
             <FlexBetween gap="0.25rem">

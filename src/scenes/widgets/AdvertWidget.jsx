@@ -29,7 +29,7 @@ const AdvertWidget = () => {
     handleScriptLoad();
 },[]);
   
-  return (<WidgetWrapper>
+  return (<WidgetWrapper zIndex={-1}>
       <FlexBetween>
         <Typography color={dark} variant="h5" fontWeight="500">
           Publicidade
@@ -39,7 +39,7 @@ const AdvertWidget = () => {
       <FlexBetween>
       <ins className="adsbygoogle"
           data-full-width-responsive="true"
-          style={{ width: "100%", height: "auto", display: "block" }}
+          style={{ width: "100%", height: "auto", display: "block",  zIndex: 1 }}
           data-ad-client="ca-pub-4527229097839562"
           data-ad-slot="6609002383"
           data-ad-format="auto"

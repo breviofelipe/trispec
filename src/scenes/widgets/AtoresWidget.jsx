@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import AtorWidget from "./AtorWidget";
 import WidgetWrapper from "components/WidgetWrapper";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-const AtoresWidget = ({ listaAtores, isMobile = false }) => {
+const AtoresWidget = ({ listaAtores }) => {
     
   const { palette } = useTheme();
   const [ atores, setAtores ] =  useState();
-
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const getAtores = () => {
      setAtores(listaAtores);
   };
@@ -18,7 +18,7 @@ const AtoresWidget = ({ listaAtores, isMobile = false }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <><WidgetWrapper isMobile={isMobile}>
+    <><WidgetWrapper isMobile={!isNonMobileScreens}>
     <Typography
       color={palette.neutral.dark}
       variant="h5"

@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -32,7 +32,7 @@ const ActorPage = () => {
       <Navbar />
       <Box
         width="100%"
-        padding="2rem 6%"
+        padding={isNonMobileScreens ? "2rem 6%" : undefined}
         display={isNonMobileScreens ? "flex" : "block"}
         gap="2rem"
         justifyContent="center"
@@ -46,11 +46,11 @@ const ActorPage = () => {
         >
           <FormMasks actorId={actorId} opnions={actorOpnions}/>
           {isNonMobileScreens && <AtoresWidget listaAtores={turma.atores} />}
-          <Box m="2rem 0" />
+         {isNonMobileScreens ?  <Box m="2rem 0" /> : <Divider />}
             {!isNonMobileScreens && (
                 <Box flexBasis="26%">
                   <AtoresWidget listaAtores={turma.atores} />
-                  <Box m="2rem 0" />             
+                  <Divider />         
                   <TurmaWidget turmaId={turma.turmaId} />
                 </Box>
               )}

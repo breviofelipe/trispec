@@ -1,6 +1,4 @@
 import WidgetWrapper from "components/WidgetWrapper";
-import "./YoutubeWidget.css";
-import YoutubeEmbed from "components/youtube/YoutubeEmbed";
 import { Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
@@ -11,8 +9,9 @@ import {
   } from "@mui/icons-material";
 import StarIcon from '@mui/icons-material/Star';
 import { useState } from "react";
+import DriverEmbed from "components/google/DriverEmbed";
 
-const YoutubeWidget = ({ embedId, picturePath, description, subtitle, likes = false }) => {
+const DocumentoWidget = ({ embedId, picturePath, description, subtitle, likes = false }) => {
     const { palette } = useTheme();
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
@@ -38,7 +37,7 @@ const YoutubeWidget = ({ embedId, picturePath, description, subtitle, likes = fa
             </FlexBetween>
             <DeleteIcon />
         </FlexBetween>
-        <YoutubeEmbed embedId={embedId} />
+        <DriverEmbed embedId={embedId} />
 
         
         <FlexBetween mt="0.25rem">
@@ -77,7 +76,11 @@ const YoutubeWidget = ({ embedId, picturePath, description, subtitle, likes = fa
             </FlexBetween>
             <DeleteIcon />
         </FlexBetween>
-        <YoutubeEmbed embedId={embedId} />     
+        
+            <Box>
+                <DriverEmbed embedId={embedId} />
+            </Box>
+        
         <FlexBetween mt="0.25rem">
             <FlexBetween gap="1rem">
                 <FlexBetween gap="0.3rem">
@@ -101,4 +104,4 @@ const YoutubeWidget = ({ embedId, picturePath, description, subtitle, likes = fa
     return <> { isNonMobileScreens ? nonMobile() : mobile()}</>
 }
 
-export default YoutubeWidget;
+export default DocumentoWidget;

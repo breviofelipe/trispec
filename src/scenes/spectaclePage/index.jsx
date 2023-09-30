@@ -1,4 +1,5 @@
 import { Box, Divider, useMediaQuery } from "@mui/material";
+import DriverEmbed from "components/google/DriverEmbed";
 import YoutubeEmbed from "components/youtube/YoutubeEmbed";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import TaskSWidget from "scenes/widgets/TasksWidget";
 import TurmaPostWidget from "scenes/widgets/TurmaPostWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import DocumentoWidget from "scenes/widgets/posts/drive/DocumentoWidget";
 import YoutubeWidget from "scenes/widgets/posts/youtube/YoutubeWidget";
 import { setTurma } from "state";
 
@@ -21,7 +23,7 @@ const SpectaclePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const turmas = useSelector((state) => state.turmas);
   const role = useSelector((state) => state.user.role);
-  const [espetaculoInfo, setEstaculo] = useState();
+  const [turmaInfo, setTurmaInfo] = useState();
   const turmaId = searchparams.get("turmaId");
   const userId = searchparams.get("userId");
   const picturePath = searchparams.get("picturePath");
@@ -31,11 +33,14 @@ const SpectaclePage = () => {
     window.scrollTo(0,0);
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
-      setEstaculo(data[0]);
-      
+      setTurmaInfo(data[0]);
       dispatch(setTurma({ turma: data[0] }));
     }
   };
+
+  useEffect(() => {
+    getEspetaculo();
+  },[turmaId])
 
   const nonMobile = () => {
     return <Box>
@@ -43,38 +48,34 @@ const SpectaclePage = () => {
     <Box
       width="100%"
       padding="2rem 6%"
-      display={isNonMobileScreens ? "flex" : "block"}
+      display={"flex"}
       gap="2rem"
       justifyContent="center"
     >
-      <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          {!isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /> <Box m="2rem 0" /></div>}
-          {isNonMobileScreens &&  <UserWidget userId={userId} picturePath={picturePath} /> }
-          {isNonMobileScreens && <Box m="2rem 0" /> }
+      <Box flexBasis={"26%"}>
+          <UserWidget userId={userId} picturePath={picturePath} />
+          <Box m="2rem 0" />
           <TurmaWidget turmaId={turmaId} />
       </Box>
       <Box
-        flexBasis={isNonMobileScreens ? "42%" : undefined}
-        mt={isNonMobileScreens ? undefined : "2rem"}
+        flexBasis={"42%"}
       >
-        {/* <MyPostWidget picturePath={picturePath} /> */}
-        {isNonMobileScreens && role && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
+        {role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
 
-          {/* <YoutubeEmbed embedId={'QxtigSvGnD8'} /> */}
+          <DocumentoWidget embedId={'1JoynXWutF9sHkfN5YHbeGKQNKHpP2fQ6='} picturePath={picturePath} description={'Texto Hamlet completo'} subtitle={'29/09/2023'} />
+          <DocumentoWidget embedId={'19CJ-A3QyLHQNZlFZEdKYgrEN_ZnoqEBT'} picturePath={picturePath} description={'O Herói de mil faces'} subtitle={'29/09/2023'} />
           <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
 
-          {espetaculoInfo && <PersonagensWidget listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
+          {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           <Box m="2rem 0" />
           <TaskSWidget />
         </Box>
        
-      {isNonMobileScreens && (
         <Box flexBasis="26%">
-            {espetaculoInfo && <AtoresWidget listaAtores={espetaculoInfo.atores} />} 
+            {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
           <Box m="2rem 0" />
           <AdvertWidget />
         </Box>
-      )}
     </Box>
   </Box>
   }
@@ -89,19 +90,23 @@ const SpectaclePage = () => {
       justifyContent="center"
     >
       <Box>
-          { role === 'ADMIN' && <div><Divider /><TurmaPostWidget isMobile={true} picturePath={picturePath} /><Divider /></div>}
-          <TurmaWidget isMobile={true} turmaId={turmaId} />
+          { role === 'ADMIN' && <div><Divider /><TurmaPostWidget picturePath={picturePath} /><Divider /></div>}
+          <TurmaWidget turmaId={turmaId} />
       </Box>
       <Divider />
       <Box>
+          <DocumentoWidget embedId={'1JoynXWutF9sHkfN5YHbeGKQNKHpP2fQ6='} picturePath={picturePath} description={'Texto Hamlet completo'} subtitle={'29/09/2023'} />
+          <Divider />
+          <DocumentoWidget embedId={'19CJ-A3QyLHQNZlFZEdKYgrEN_ZnoqEBT'} picturePath={picturePath} description={'O Herói de mil faces'} subtitle={'29/09/2023'} />
+          <Divider />
           <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
           <Divider />
-          {espetaculoInfo && <PersonagensWidget isMobile={true} listaPersonagens={espetaculoInfo.espetaculo.personagens} /> }
+          {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           <Divider />
           <TaskSWidget />
               <Box flexBasis="26%">
                 <Divider />
-                  {espetaculoInfo && <AtoresWidget  isMobile={true} listaAtores={espetaculoInfo.atores} />} 
+                  {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
                   <Divider />
                   <AdvertWidget />
               </Box>         
@@ -109,9 +114,7 @@ const SpectaclePage = () => {
       </Box>
   </Box>
   }
-  useEffect(() => {
-    getEspetaculo();
-  },[])
+  
 
   return (<>{isNonMobileScreens ? nonMobile() : mobile()}</>
     

@@ -4,7 +4,7 @@ import {
 } from "@mui/icons-material";
 import { FaTheaterMasks } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi'
-import { Box, Typography, Divider, useTheme } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -25,6 +25,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com'
 
@@ -51,7 +52,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
   };
 
   const profileUser = () => {
-    return <WidgetWrapper>
+    return <WidgetWrapper isMobile={!isNonMobileScreens} >
       {/* FIRST ROW */}
       <FlexBetween
         gap="0.5rem"
@@ -149,7 +150,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
     </WidgetWrapper>
   };
   const profileActor = () => {
-    return <WidgetWrapper>
+    return <WidgetWrapper isMobile={!isNonMobileScreens} >
       {/* FIRST ROW */}
       <FlexBetween
         gap="0.5rem"

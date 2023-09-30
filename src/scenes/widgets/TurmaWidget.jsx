@@ -5,13 +5,12 @@ import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Divider, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate, createSearchParams } from "react-router-dom";
   
   
   const TurmaWidget = ({  
     turmaId,
-    isMobile = false
   }) => {
 
   const { palette } = useTheme();
@@ -21,6 +20,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
   const navigate = useNavigate();
   const [espetaculoInfo, setEstaculo] = useState();
   const { id, picturePath } = useSelector((state) => state.user);
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const getEspetaculo = () => {
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
@@ -33,7 +33,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
   },[])
 
     return (
-      <WidgetWrapper m="0 0" isMobile={isMobile}>
+      <WidgetWrapper m="0 0" isMobile={!isNonMobileScreens}>
         <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
