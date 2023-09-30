@@ -6,11 +6,23 @@ import UserWidget from "scenes/widgets/UserWidget";
 import FriendListWidget from "scenes/widgets/FriendListWidget";
 import TurmasWidget from "scenes/widgets/TurmasWidget";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const { id, picturePath } = useSelector((state) => state.user);
-  
+  const role = useSelector((state) => state.user.role);
+  const turmas = useSelector((state) => state.turmas);
+  const navigete = useNavigate();
+
+  if(role === "ACTOR"){
+    const turmaId = turmas.filter(turma => turma.atores.filter(ator => ator.userId === id)).map(turma => turma.turmaId)[0];
+    navigete({
+      pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId, 'userId': id, 'picturePath': picturePath}).toString()
+    });
+
+  }
+
   return (
     <Box>
       <Navbar />
