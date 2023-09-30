@@ -85,13 +85,14 @@ const SpectaclePage = () => {
     >
       <Box>
           { role === 'ADMIN' && <div><Divider /><TurmaPostWidget picturePath={picturePath} /><Divider /></div>}
-          <TurmaWidget turmaId={turmaId} />
       </Box>
       <Divider />
       <Box>
-          <TurmaPostsWidget picturePath={picturePath} />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
-          
+          <Divider />
+          <TurmaWidget turmaId={turmaId} />
+          <Divider />
+          <TurmaPostsWidget picturePath={picturePath} />
               <Box flexBasis="26%">
                 <Divider />
                   {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 

@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
@@ -22,40 +22,59 @@ const HomePage = () => {
     });
 
   }
-
-  return (
-    <Box>
+  const nonMobile = ()  => {
+    return <Box>
       <Navbar />
       <Box
         width="100%"
         padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
+        display="flex"
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <Box flexBasis={"26%"}>
           <UserWidget userId={id} picturePath={picturePath} />
           <Box m="2rem 0" />
           <AdvertWidget />
         </Box>
         <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
-        >
-          
+          flexBasis={"42%"} >
           <TurmasWidget />
           <Box m="2rem 0" />
         </Box>
-        {isNonMobileScreens && (
-          <Box flexBasis="26%">
-            <FriendListWidget userId={id} />
-            
-            <Box m="2rem 0" />
-          </Box>
-        )}
+        <Box flexBasis="26%">
+          <FriendListWidget userId={id} />
+          <Box m="2rem 0" />
+        </Box>
+      </Box>
+  </Box>
+  }
+
+  const mobile = () => {
+    return <Box>
+    <Navbar />
+    <Box
+      width="100%"
+      display={"block"}
+      gap="0.5rem"
+      justifyContent="space-between"
+    >
+      <Box>
+        <Divider />
+        <UserWidget userId={id} picturePath={picturePath} />
+        <Divider />
+        <TurmasWidget />
+      </Box>
+      <Box>
+        <Divider />
+        <AdvertWidget />
+        <Divider />
       </Box>
     </Box>
-  );
+  </Box>
+  }
+
+  return (<div>{isNonMobileScreens ? nonMobile() : mobile()}</div>);
 };
 
 export default HomePage;

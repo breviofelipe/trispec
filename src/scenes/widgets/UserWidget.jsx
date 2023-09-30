@@ -261,7 +261,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
   }, [userId, ator]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {
-    return <WidgetWrapper><DnaLoading /></WidgetWrapper>;
+    return <WidgetWrapper isMobile={!isNonMobileScreens}><DnaLoading /></WidgetWrapper>;
   }
 
   const {

@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect } from "react";
@@ -10,6 +10,7 @@ const FriendListWidget = ({ userId }) => {
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getFriends = async () => {
     const response = await fetch(
@@ -28,7 +29,7 @@ const FriendListWidget = ({ userId }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper isMobile={!isNonMobileScreens}>
       <Typography
         color={palette.neutral.dark}
         variant="h5"

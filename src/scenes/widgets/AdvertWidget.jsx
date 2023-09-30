@@ -1,4 +1,4 @@
-import { Typography, useTheme } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect } from "react";
@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const AdvertWidget = () => {
   const { palette } = useTheme();
   const dark = palette.neutral.dark;
-
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const medium = palette.neutral.medium;
 
 
@@ -29,7 +29,7 @@ const AdvertWidget = () => {
     handleScriptLoad();
 },[]);
   
-  return (<WidgetWrapper zIndex={-1}>
+  return (<WidgetWrapper isMobile={!isNonMobileScreens}>
       <FlexBetween>
         <Typography color={dark} variant="h5" fontWeight="500">
           Publicidade
@@ -39,7 +39,7 @@ const AdvertWidget = () => {
       <FlexBetween>
       <ins className="adsbygoogle"
           data-full-width-responsive="true"
-          style={{ width: "100%", height: "auto", display: "block",  zIndex: 1 }}
+          style={{ width: "100%", height: "auto" }}
           data-ad-client="ca-pub-4527229097839562"
           data-ad-slot="6609002383"
           data-ad-format="auto"
