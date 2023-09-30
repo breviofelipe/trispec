@@ -3,7 +3,7 @@
   import { setTasks } from "state";
 import TaskItem from "./item/TaskItem";
 import WidgetWrapper from "components/WidgetWrapper";
-import { Typography, useTheme } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
   
   const TaskSWidget = () => {
     const dispatch = useDispatch();
@@ -12,6 +12,7 @@ import { Typography, useTheme } from "@mui/material";
 
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
+    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     
   
     const getTasks = async () => {
@@ -30,7 +31,7 @@ import { Typography, useTheme } from "@mui/material";
         getTasks();
     }, []);
   
-    return (<WidgetWrapper>
+    return (<WidgetWrapper isMobile={!isNonMobileScreens} >
       <Typography
               variant="h4"
               color={dark}

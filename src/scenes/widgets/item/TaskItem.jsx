@@ -2,7 +2,7 @@ import { Typography, useTheme } from '@mui/material';
 import './TaskItem.css'
 import { NavLink } from 'react-router-dom'
 export default function TaskItem ({ task }) {
-  const style = { '--i': 4, '--color': task?.cor };
+  const style = { '--i': 3, '--color': task?.cor };
   const { palette } = useTheme();
   return <NavLink className='navlink' to='card-tarefa' state={{ task }} >
               <div className='listaTarefas'>

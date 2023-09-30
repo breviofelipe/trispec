@@ -12,6 +12,7 @@ import TaskSWidget from "scenes/widgets/TasksWidget";
 import TurmaPostWidget from "scenes/widgets/TurmaPostWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/UserWidget";
+import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
 import DocumentoWidget from "scenes/widgets/posts/drive/DocumentoWidget";
 import YoutubeWidget from "scenes/widgets/posts/youtube/YoutubeWidget";
 import { setTurma } from "state";
@@ -60,17 +61,10 @@ const SpectaclePage = () => {
       <Box
         flexBasis={"42%"}
       >
-        {role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
-
-          <DocumentoWidget embedId={'1JoynXWutF9sHkfN5YHbeGKQNKHpP2fQ6='} picturePath={picturePath} description={'Texto Hamlet completo'} subtitle={'29/09/2023'} />
-          <DocumentoWidget embedId={'19CJ-A3QyLHQNZlFZEdKYgrEN_ZnoqEBT'} picturePath={picturePath} description={'O Herói de mil faces'} subtitle={'29/09/2023'} />
-          <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
-
+          {role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
+          <TurmaPostsWidget picturePath={picturePath} />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
-          <Box m="2rem 0" />
-          <TaskSWidget />
-        </Box>
-       
+        </Box>      
         <Box flexBasis="26%">
             {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
           <Box m="2rem 0" />
@@ -95,15 +89,9 @@ const SpectaclePage = () => {
       </Box>
       <Divider />
       <Box>
-          <DocumentoWidget embedId={'1JoynXWutF9sHkfN5YHbeGKQNKHpP2fQ6='} picturePath={picturePath} description={'Texto Hamlet completo'} subtitle={'29/09/2023'} />
-          <Divider />
-          <DocumentoWidget embedId={'19CJ-A3QyLHQNZlFZEdKYgrEN_ZnoqEBT'} picturePath={picturePath} description={'O Herói de mil faces'} subtitle={'29/09/2023'} />
-          <Divider />
-          <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
-          <Divider />
+          <TurmaPostsWidget picturePath={picturePath} />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
-          <Divider />
-          <TaskSWidget />
+          
               <Box flexBasis="26%">
                 <Divider />
                   {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
