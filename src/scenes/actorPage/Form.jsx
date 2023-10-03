@@ -4,7 +4,7 @@ import LoadingComponent from "components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { setAtor } from "state";
 
-const { Box, Typography, useTheme, Divider, Button } = require("@mui/material")
+const { Box, Typography, useTheme, Divider, Button, useMediaQuery } = require("@mui/material")
 const { default: FlexBetween } = require("components/FlexBetween")
 const { default: Masks } = require("components/masks/Masks");
 const { useState } = require("react");
@@ -20,6 +20,7 @@ const FormMasks = ({ actorId, opnions }) => {
     const token = useSelector((state) => state.token);
     const [enviando, setEnviando] = useState(false);
     const dispatch = useDispatch();
+    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     
     const postOpnion = async () =>{
       {      
@@ -48,8 +49,6 @@ const FormMasks = ({ actorId, opnions }) => {
       return null;
     }
     if(opnions){
-      console.log(opnions);
-      console.log(userId);
       const userOp = opnions.filter((op) => op === userId);
       if(userOp.length > 0){
         console.log("opnion posted")
@@ -57,9 +56,9 @@ const FormMasks = ({ actorId, opnions }) => {
       }
     } else return null;
   
-
+    // }
     return <div>
-      {enviando ? <div><WidgetWrapper><LoadingComponent /></WidgetWrapper><Box m="2rem 0" /></div> : <div><WidgetWrapper>
+      {enviando ? <div><WidgetWrapper isMobile={!isNonMobileScreens} ><LoadingComponent /></WidgetWrapper><Box m="2rem 0" /></div> : <div>{!isNonMobileScreens && <Divider />}<WidgetWrapper isMobile={!isNonMobileScreens}>
     <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
         Deixe sua opnião!
     </Typography>
@@ -101,7 +100,7 @@ const FormMasks = ({ actorId, opnions }) => {
     </FlexBetween>
     </Box>
     </WidgetWrapper>
-    <Box m="2rem 0" />
+    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
         </div>}
     </div>
 }

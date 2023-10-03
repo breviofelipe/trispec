@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery, Divider } from "@mui/material";
 import Form from "./Form";
 
 const LoginPage = () => {
@@ -17,9 +17,9 @@ const LoginPage = () => {
         🏛️ Trispec
         </Typography>
       </Box>
-
+      {!isNonMobileScreens && <Divider />}
       <Box
-        width={isNonMobileScreens ? "50%" : "93%"}
+        width={isNonMobileScreens ? "50%" : "97%"}
         p="2rem"
         m="2rem auto"
         borderRadius="1.5rem"
