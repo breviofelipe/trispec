@@ -49,7 +49,6 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
         body: JSON.stringify({ userId: loggedInUserId }),
       });
       const updatedPost = await response.json();
-      console.log(updatedPost);
       dispatch(setPost({ post: updatedPost }));
     };
 

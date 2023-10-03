@@ -42,7 +42,6 @@ const ActorPage = () => {
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
         >
           <FormMasks actorId={actorId} opnions={actorOpnions}/>
           {isNonMobileScreens && <AtoresWidget listaAtores={turma.atores} />}

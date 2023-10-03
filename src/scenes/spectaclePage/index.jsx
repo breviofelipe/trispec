@@ -84,18 +84,14 @@ const SpectaclePage = () => {
       </Box>
       <Divider />
       <Box>
+          <TurmaWidget turmaId={turmaId} />
+          <Divider />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           <Divider />
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
-          <TurmaWidget turmaId={turmaId} />
+          {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
           <Divider />
-          <TurmaPostsWidget picturePath={picturePath} />
-              <Box flexBasis="26%">
-                <Divider />
-                  {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
-                  <Divider />
-                  <AdvertWidget />
-              </Box>         
+          <AdvertWidget />     
         </Box>
       </Box>
   </Box>

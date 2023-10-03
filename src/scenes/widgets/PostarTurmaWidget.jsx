@@ -25,6 +25,7 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { setPosts } from "state";
   import YouTubeIcon from '@mui/icons-material/YouTube';
+import LoadingComponent from "components/loading/Loading";
   const PostarTurmaWidget = ({ picturePath }) => {
     const dispatch = useDispatch();
     const [isImage, setIsImage] = useState(false);
@@ -41,6 +42,7 @@ import {
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;
+    const [loading, setLoading] = useState(false);
     // const url = "http://localhost:5000";
     const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
 
@@ -71,7 +73,7 @@ import {
       
       
     const handlePost = async () => {
-   
+      setLoading(true);
       if (image) {
         getBase64FromUrl(image);
       }
@@ -119,6 +121,7 @@ import {
       setPost("");
       setIsYoutube(false);
       setIsDoc(false);
+      setLoading(false);
     };
 
     const postImage = () => {
@@ -217,6 +220,10 @@ import {
         setIsDoc(false);
         setIsYoutube(false);
       }       
+    }
+
+    if(loading){
+      return <WidgetWrapper isMobile={!isNonMobileScreens}><LoadingComponent /></WidgetWrapper>
     }
   
     return (

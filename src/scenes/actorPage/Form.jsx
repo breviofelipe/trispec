@@ -2,13 +2,12 @@ import { EditOutlined } from "@mui/icons-material";
 import WidgetWrapper from "components/WidgetWrapper";
 import LoadingComponent from "components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { setAtor } from "state";
 
 const { Box, Typography, useTheme, Divider, Button } = require("@mui/material")
 const { default: FlexBetween } = require("components/FlexBetween")
 const { default: Masks } = require("components/masks/Masks");
-const { useState, useEffect } = require("react");
+const { useState } = require("react");
 const FormMasks = ({ actorId, opnions }) => {
     const { palette } = useTheme();
     const medium = palette.neutral.medium;
@@ -20,7 +19,6 @@ const FormMasks = ({ actorId, opnions }) => {
     const userId = useSelector((state) => state.user.id);
     const token = useSelector((state) => state.token);
     const [enviando, setEnviando] = useState(false);
-    const navigate = useNavigate()
     const dispatch = useDispatch();
     
     const postOpnion = async () =>{
@@ -40,7 +38,6 @@ const FormMasks = ({ actorId, opnions }) => {
         });
         const res = await response.json();
         setEnviando(false)
-        console.log(res);
         setGrande(false)
         dispatch(setAtor({ ator: res }));
       }

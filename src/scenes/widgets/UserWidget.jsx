@@ -150,110 +150,111 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
     </WidgetWrapper>
   };
   const profileActor = () => {
-    return <WidgetWrapper isMobile={!isNonMobileScreens} >
-      {/* FIRST ROW */}
-      <FlexBetween
-        gap="0.5rem"
-        pb="1.1rem"
-      >
-        <FlexBetween gap="1rem">
-          <UserImage image={picturePath} />
-          <Box>
-            <Typography
-              variant="h4"
-              color={dark}
-              fontWeight="500"
-              sx={{
-                "&:hover": {
-                  color: palette.primary.light,
-                  cursor: "pointer",
-                },
-              }}
-            >
-              {user.nome} {user.sobrenome}
-            </Typography>
+    return <div>{!isNonMobileScreens && <Divider />}<WidgetWrapper isMobile={!isNonMobileScreens} >
+    {/* FIRST ROW */}
+    
+    <FlexBetween
+      gap="0.5rem"
+      pb="1.1rem"
+    >
+      <FlexBetween gap="1rem">
+        <UserImage image={picturePath} />
+        <Box>
+          <Typography
+            variant="h4"
+            color={dark}
+            fontWeight="500"
+            sx={{
+              "&:hover": {
+                color: palette.primary.light,
+                cursor: "pointer",
+              },
+            }}
+          >
+            {user.nome} {user.sobrenome}
+          </Typography>
+            <FlexBetween gap="0.5rem">
+              <Typography color={medium}><Masks quantidade={user.estrelas} /></Typography>
+            </FlexBetween>
               <FlexBetween gap="0.5rem">
-                <Typography color={medium}><Masks quantidade={user.estrelas} /></Typography>
+                {user && user.opnions && <Typography color={medium}>{user.opnions.length} opniões</Typography> }
               </FlexBetween>
-                <FlexBetween gap="0.5rem">
-                  {user && user.opnions && <Typography color={medium}>{user.opnions.length} opniões</Typography> }
-                </FlexBetween>
+        </Box>
+      </FlexBetween>
+      {myProfile && <ManageAccountsOutlined />}
+    </FlexBetween>
+
+    <Divider />
+
+    {/* SECOND ROW */}
+    <Box p="1rem 0">
+      <Box display="flex" justifyContent="space-between" >
+      <Typography color={medium}>Criatividade </Typography>
+        <FlexBetween>
+          <Masks quantidade={user.criatividade} />
+        </FlexBetween>
+      </Box>
+      <Box display="flex" justifyContent="space-between" >
+        <Typography color={medium}>Pontualidade </Typography>
+       <FlexBetween>
+        <Masks quantidade={user.pontualidade} />
+       </FlexBetween>
+      </Box>
+      <Box display="flex" justifyContent="space-between" >
+        <Typography color={medium}>Trabalho em equipe </Typography>
+        <FlexBetween>
+          <Masks quantidade={user.trabalhoEquipe} />
+        </FlexBetween>
+      </Box>
+    </Box>
+
+    <Divider />
+
+    {/* THIRD ROW */}
+    <Box p="1rem 0">
+      <FlexBetween mb="0.5rem">
+        <PersonagemWidget nome={user.personagens[0].nome}/>
+      </FlexBetween>
+      <FlexBetween>
+
+      </FlexBetween>
+    </Box>
+
+    <Divider />
+
+    {/* FOURTH ROW */}
+    <Box p="1rem 0">
+      <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
+        Social Profiles
+      </Typography>
+
+      <FlexBetween gap="1rem" mb="0.5rem">
+        <FlexBetween gap="1rem">
+          <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1695226935/assets/hqbgog5hxihchcormwcv.png" alt="twitter" />
+          <Box>
+            <Typography color={main} fontWeight="500">
+              Twitter
+            </Typography>
+            <Typography color={medium}>Social Network</Typography>
           </Box>
         </FlexBetween>
-        {myProfile && <ManageAccountsOutlined />}
+        { myProfile && <EditOutlined sx={{ color: main }} /> }
       </FlexBetween>
 
-      <Divider />
-
-      {/* SECOND ROW */}
-      <Box p="1rem 0">
-        <Box display="flex" justifyContent="space-between" >
-        <Typography color={medium}>Criatividade </Typography>
-          <FlexBetween>
-            <Masks quantidade={user.criatividade} />
-          </FlexBetween>
-        </Box>
-        <Box display="flex" justifyContent="space-between" >
-          <Typography color={medium}>Pontualidade </Typography>
-         <FlexBetween>
-          <Masks quantidade={user.pontualidade} />
-         </FlexBetween>
-        </Box>
-        <Box display="flex" justifyContent="space-between" >
-          <Typography color={medium}>Trabalho em equipe </Typography>
-          <FlexBetween>
-            <Masks quantidade={user.trabalhoEquipe} />
-          </FlexBetween>
-        </Box>
-      </Box>
-
-      <Divider />
-
-      {/* THIRD ROW */}
-      <Box p="1rem 0">
-        <FlexBetween mb="0.5rem">
-          <PersonagemWidget nome={user.personagens[0].nome}/>
-        </FlexBetween>
-        <FlexBetween>
-
-        </FlexBetween>
-      </Box>
-
-      <Divider />
-
-      {/* FOURTH ROW */}
-      <Box p="1rem 0">
-        <Typography fontSize="1rem" color={main} fontWeight="500" mb="1rem">
-          Social Profiles
-        </Typography>
-
-        <FlexBetween gap="1rem" mb="0.5rem">
-          <FlexBetween gap="1rem">
-            <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1695226935/assets/hqbgog5hxihchcormwcv.png" alt="twitter" />
-            <Box>
-              <Typography color={main} fontWeight="500">
-                Twitter
-              </Typography>
-              <Typography color={medium}>Social Network</Typography>
-            </Box>
-          </FlexBetween>
-          { myProfile && <EditOutlined sx={{ color: main }} /> }
-        </FlexBetween>
-
+      <FlexBetween gap="1rem">
         <FlexBetween gap="1rem">
-          <FlexBetween gap="1rem">
-            <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1695226935/assets/xuhn8qzudys1buehzmlt.png" alt="linkedin" />
-            <Box>
-              <Typography color={main} fontWeight="500">
-                Linkedin
-              </Typography>
-              <Typography color={medium}>Network Platform</Typography>
-            </Box>
-          </FlexBetween>
-          { myProfile && <EditOutlined sx={{ color: main }} /> }
+          <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1695226935/assets/xuhn8qzudys1buehzmlt.png" alt="linkedin" />
+          <Box>
+            <Typography color={main} fontWeight="500">
+              Linkedin
+            </Typography>
+            <Typography color={medium}>Network Platform</Typography>
+          </Box>
         </FlexBetween>
-      </Box>
-    </WidgetWrapper>
+        { myProfile && <EditOutlined sx={{ color: main }} /> }
+      </FlexBetween>
+    </Box>
+  </WidgetWrapper></div>
   };
 
   useEffect(() => {
