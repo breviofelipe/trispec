@@ -39,7 +39,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
         pb="1.1rem"
         onClick={() => { 
           navigate({
-            pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId, 'userId': id, 'picturePath': picturePath}).toString()
+            pathname:`/spectacle/`, search: createSearchParams({ 'turmaId': turmaId }).toString()
           })
         }}
       >

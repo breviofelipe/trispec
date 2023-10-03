@@ -112,7 +112,7 @@ const Form = () => {
         } 
       } else {
         setLoading(false)
-        setWarning("email ou senha errado!")
+        setWarning("e-mail ou senha inválido!")
         }
     } catch (err) {
         setLoading(false)

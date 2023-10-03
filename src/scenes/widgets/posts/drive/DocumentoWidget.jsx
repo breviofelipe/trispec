@@ -8,19 +8,48 @@ import {
     FavoriteOutlined,
   } from "@mui/icons-material";
 import StarIcon from '@mui/icons-material/Star';
-import { useState } from "react";
 import DriverEmbed from "components/google/DriverEmbed";
+import { useDispatch, useSelector } from "react-redux";
+import { setPost } from "state";
+import { useNavigate } from "react-router-dom";
 
-const DocumentoWidget = ({ embedId, picturePath, description, subtitle, likes = false }) => {
+const DocumentoWidget = ({id, loggedInUserId, embedId, picturePath, description, subtitle, likes = false }) => {
     const { palette } = useTheme();
     const main = palette.neutral.main;
     const medium = palette.neutral.medium;
     const primary = palette.primary.main;
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-    //  const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
-    const [isLiked, setIsLiked] = useState(false);
+    const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
     const likeCount = Object.keys(likes ? likes : []).length;
+    // const url = 'http://localhost:5000';
+    const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+    const dispatch = useDispatch();
+    const role = useSelector((state) => state.user.role);
+    const token = useSelector((state) => state.token);
+    const navigate = useNavigate();
+    const deletePost = async () => {
+        const response = await fetch(url+`/turmas/${id}/posts`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
+        });
+        navigate(0);
+    };
 
+    const patchLike = async () => {
+      const response = await fetch(url+`/turmas/${id}/like`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: loggedInUserId }),
+      });
+      const updatedPost = await response.json();
+      dispatch(setPost({ post: updatedPost }));
+    };
     const mobile = () => {
         return <WidgetWrapper isMobile={true}>
         <FlexBetween mb={"1rem"}>
@@ -35,7 +64,7 @@ const DocumentoWidget = ({ embedId, picturePath, description, subtitle, likes = 
                     </Typography>
                 </Box>
             </FlexBetween>
-            <DeleteIcon />
+            {role === 'ADMIN' && <DeleteIcon onClick={deletePost} /> }
         </FlexBetween>
         <DriverEmbed embedId={embedId} />
 
@@ -43,7 +72,7 @@ const DocumentoWidget = ({ embedId, picturePath, description, subtitle, likes = 
         <FlexBetween mt="0.25rem">
             <FlexBetween gap="1rem">
                 <FlexBetween gap="0.3rem">
-                    <IconButton onClick={() => {setIsLiked(!isLiked)}}>
+                    <IconButton onClick={() => {patchLike()}}>
                     {isLiked ? (
                         <FavoriteOutlined sx={{ color: primary }} />
                     ) : (
@@ -74,7 +103,7 @@ const DocumentoWidget = ({ embedId, picturePath, description, subtitle, likes = 
                     </Typography>
                 </Box>
             </FlexBetween>
-            <DeleteIcon />
+            {role === 'ADMIN' && <DeleteIcon onClick={deletePost} /> }
         </FlexBetween>
         
             <Box>
@@ -84,7 +113,7 @@ const DocumentoWidget = ({ embedId, picturePath, description, subtitle, likes = 
         <FlexBetween mt="0.25rem">
             <FlexBetween gap="1rem">
                 <FlexBetween gap="0.3rem">
-                    <IconButton onClick={() => {setIsLiked(!isLiked)}}>
+                    <IconButton onClick={() => {patchLike()}}>
                     {isLiked ? (
                         <FavoriteOutlined sx={{ color: primary }} />
                     ) : (

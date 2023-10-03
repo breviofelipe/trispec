@@ -19,6 +19,7 @@ const PersonagensWidget = ({ listaPersonagens }) => {
           nome,
           espetaculoId,
         }) => (<PersonagemWidget
+          key={id}
           id={id}
           nome={nome}
           espetaculoId={espetaculoId}

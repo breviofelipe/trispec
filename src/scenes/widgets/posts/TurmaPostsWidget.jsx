@@ -1,33 +1,96 @@
-    import { Box, Divider, useMediaQuery } from "@mui/material";
+import { Box, Divider, useMediaQuery } from "@mui/material";
 import DocumentoWidget from "./drive/DocumentoWidget";
 import YoutubeWidget from "./youtube/YoutubeWidget";
 import TaskSWidget from "../TasksWidget";
+import { useDispatch, useSelector } from "react-redux";
+import { setPosts } from "state";
+import TurmaPostWidget from "./TurmaPostWidget";
+import { useEffect } from "react";
 
-const TurmaPostsWidget = ({picturePath}) => {
-
+const TurmaPostsWidget = ({picturePath, turmaId}) => {
+    // const url = "http://localhost:5000";
+    const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+    const dispatch = useDispatch();
+    const posts = useSelector((state) => state.posts);
+    const token = useSelector((state) => state.token);
+
+    const getPosts = async () => {
+        try {
+          const response = await fetch(url+`/turmas/${turmaId}/posts`, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const data = await response.json();
+          dispatch(setPosts({ posts: data }));
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+    useEffect(() => {        
+        getPosts();       
+      }, [turmaId]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const nonMobile = () => {
-        return <>
-            <DocumentoWidget embedId={'1JoynXWutF9sHkfN5YHbeGKQNKHpP2fQ6='} picturePath={picturePath} description={'Texto Hamlet completo'} subtitle={'29/09/2023'} />
-            <DocumentoWidget embedId={'19CJ-A3QyLHQNZlFZEdKYgrEN_ZnoqEBT'} picturePath={picturePath} description={'O Herói de mil faces'} subtitle={'29/09/2023'} />
-            <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
-            <Box m="2rem 0" />
-            <TaskSWidget />    
-        </>
+        return Array.isArray(posts) && posts.map(({
+            id,
+            userId,
+            turmaId,
+            description,
+            picturePath,
+            youtubeEmbedId,
+            driveEmbedId,
+            userPicturePath,
+            createdAt,
+            likes
+        }) => {
+            return <><TurmaPostWidget
+                        key={turmaId}
+                        id={id}
+                        turmaId={turmaId}
+                        userId={userId}
+                        description={description}
+                        picturePath={picturePath}
+                        createdAt={createdAt}
+                        driveEmbedId={driveEmbedId}
+                        likes={likes}
+                        userPicturePath={userPicturePath}
+                        youtubeEmbedId={youtubeEmbedId} />
+                    <Box m={"2rem"} /></>
+            
+        })
+             
     }
 
     const mobile = () => {
-        return <>
-            <DocumentoWidget embedId={'1JoynXWutF9sHkfN5YHbeGKQNKHpP2fQ6='} picturePath={picturePath} description={'Texto Hamlet completo'} subtitle={'29/09/2023'} />
-            <Divider />
-            <DocumentoWidget embedId={'19CJ-A3QyLHQNZlFZEdKYgrEN_ZnoqEBT'} picturePath={picturePath} description={'O Herói de mil faces'} subtitle={'29/09/2023'} />
-            <Divider />
-            <YoutubeWidget embedId={'s6F8UTHAtSw'} picturePath={picturePath} description={'Teste post youtube'} subtitle={'28/09/2023'} />
-            <Divider />
-            <TaskSWidget />
-            <Divider />
-          </>
+      return Array.isArray(posts) && posts.map(({
+        id,
+        userId,
+        turmaId,
+        description,
+        picturePath,
+        youtubeEmbedId,
+        driveEmbedId,
+        userPicturePath,
+        createdAt,
+        likes
+    }) => {
+        return <><TurmaPostWidget
+                    id={id}
+                    key={id}
+                    turmaId={turmaId}
+                    userId={userId}
+                    description={description}
+                    picturePath={picturePath}
+                    createdAt={createdAt}
+                    driveEmbedId={driveEmbedId}
+                    likes={likes}
+                    userPicturePath={userPicturePath}
+                    youtubeEmbedId={youtubeEmbedId} />
+                <Divider /></>
+        
+    })
     }
 
     return (<>{isNonMobileScreens ? nonMobile() : mobile()}</>)
