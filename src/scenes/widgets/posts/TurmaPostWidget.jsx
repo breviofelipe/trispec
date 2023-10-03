@@ -14,6 +14,7 @@ import YoutubeWidget from "./youtube/YoutubeWidget";
 import DocumentoWidget from "./drive/DocumentoWidget";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { format } from 'date-fns';  
+import ptBR from 'date-fns/locale/pt-BR';
 import { useNavigate } from "react-router-dom";
   const TurmaPostWidget = ({
     id,
@@ -49,8 +50,13 @@ import { useNavigate } from "react-router-dom";
   
 
     const getFormatedDate = (str) => {
-      let currentDate = format(new Date(str), 'dd/MM/yyyy - HH:mm');
-      return currentDate;
+      try {
+        let currentDate = format(new Date(str), 'dd/MM/yyyy - HH:mm',  { locale: ptBR });
+        return currentDate;
+      } catch ( err ){
+        console.log(err);
+        return '';
+      }
     }
 
     const deletePost = async () => {
