@@ -50,10 +50,10 @@ import { useNavigate } from "react-router-dom";
   
 
     const getFormatedDate = (str) => {
-      try {
-        let currentDate = format(new Date(str), 'dd/MM/yyyy - HH:mm',  { locale: ptBR });
-        return currentDate;
-      } catch ( err ){
+     try {
+      let currentDate = format(new Date(str), 'dd MMMM yyyy, HH:mm',  { locale: ptBR });
+      return currentDate;
+     } catch ( err ){
         console.log(err);
         return '';
       }
