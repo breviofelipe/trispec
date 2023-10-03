@@ -274,10 +274,10 @@ import LoadingComponent from "components/loading/Loading";
             </>
           ) : (
             <>
-            <FlexBetween gap="0.25rem">
+            <FlexBetween gap="0.25rem" onClick={() => onClickLink("YOUTUBE")} >
             <YouTubeIcon sx={{ color: mediumMain }} />
             </FlexBetween>
-            <FlexBetween gap="0.25rem">
+            <FlexBetween gap="0.25rem" onClick={() => onClickLink("DOC")} >
               <AttachFileOutlined sx={{ color: mediumMain }} />
             </FlexBetween>
             <FlexBetween gap="0.25rem">
