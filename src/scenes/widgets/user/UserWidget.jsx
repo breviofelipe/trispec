@@ -245,8 +245,8 @@ const UserWidget = ({ userId, actorProfile }) => {
   const [link, setLink] = useState();
   const [linkUpdate, setLinkUpdate] = useState();
 
-  const [linkTiktok, setLinkTiktok] = useState();
-  const [linkUpdateTikTok, setLinkUpdateTikTok] = useState();
+  const [linkEditInsta, setEditInsta] = useState();
+  const [linkInsta, setLinkInsta] = useState();
 
   const profileActor = () => {
     return <div>{!isNonMobileScreens && <Divider />}<WidgetWrapper isMobile={!isNonMobileScreens} >
@@ -330,16 +330,16 @@ const UserWidget = ({ userId, actorProfile }) => {
       <FlexBetween gap="1rem" mb="0.5rem">
         <FlexBetween gap="1rem">
           <img style={{width : 25, height: 25}} src="https://res.cloudinary.com/dosghtja7/image/upload/v1696357234/instagram_dvirc4.png" alt="instagram" />
-          {linkTiktok ? inputLink('https://instagram.com/', linkUpdateTikTok, setLinkUpdateTikTok) : 
+          {linkEditInsta ? inputLink('https://instagram.com/', linkInsta, setLinkInsta) : 
           <Box>
             <Typography onClick={() => {openNewTab('INSTAGRAM')}} color={main} fontWeight="500">
               Instagram
             </Typography>
             <Typography color={medium}>Network Platform</Typography>         
-          </Box> 
+          </Box>
          } 
         </FlexBetween>
-        { myProfile && editSave(linkTiktok, setLinkTiktok, "TIKTOK", userId, linkUpdateTikTok, token, setUser) }
+        { myProfile && editSave(linkEditInsta, setEditInsta, "INSTAGRAM", userId, linkInsta, token, setUser) }
       </FlexBetween>
 
       <FlexBetween gap="1rem">
