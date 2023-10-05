@@ -1,5 +1,6 @@
 import { EditOutlined } from "@mui/icons-material"
 import { Button, InputBase, useTheme } from "@mui/material";
+import FlexBetween from "components/FlexBetween";
 
 
 
@@ -19,12 +20,21 @@ const inputLink = (holder, value, setOnChange) => {
   />
 }
 
+import CancelIcon from '@mui/icons-material/Cancel';
+
 const editSave = (edit, setEdit, type, userId, link, token, setUser) => {
   const { palette } = useTheme();
   const main = palette.neutral.main;
-    if(edit){
-      return <Button
-      disabled={!edit}
+   if(edit){
+      return <FlexBetween gap={"0.5rem"}>
+        <Button
+          onClick={() => {
+            setEdit(false);
+          }}>
+      <CancelIcon fontSize="large" />
+      </Button>
+        <Button
+      disabled={!link}
       onClick={() => {
         setEdit(false);
         handlePatchLink(link, type, userId, token, setUser);
@@ -37,6 +47,7 @@ const editSave = (edit, setEdit, type, userId, link, token, setUser) => {
     >
       Salvar
     </Button>
+      </FlexBetween>
     } else {
       return <EditOutlined onClick={() => { setEdit(true) }} sx={{ color: main }} />
     }

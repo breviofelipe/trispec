@@ -7,8 +7,6 @@ import FriendListWidget from "scenes/widgets/FriendListWidget";
 import TurmasWidget from "scenes/widgets/TurmasWidget";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
-// import MyPostWidget from "scenes/widgets/MyPostWidget";
-// import PostsWidget from "scenes/widgets/PostsWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -20,7 +18,7 @@ const HomePage = () => {
   if(role === "ACTOR"){
     const turmaId = turmas.filter(turma => turma.atores.filter(ator => ator.userId === id)).map(turma => turma.turmaId)[0];
     navigete({
-      pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId, 'userId': id, 'picturePath': picturePath}).toString()
+      pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId }).toString()
     });
 
   }
@@ -41,10 +39,8 @@ const HomePage = () => {
         </Box>
         <Box
           flexBasis={"42%"} >
-          {/* <MyPostWidget picturePath={picturePath} /> */}
           <TurmasWidget />
           <Box m="2rem 0" />
-          {/* <PostsWidget userId={id} /> */}
         </Box>
         <Box flexBasis="26%">
           <FriendListWidget userId={id} />

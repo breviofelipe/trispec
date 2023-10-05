@@ -9,7 +9,7 @@ import {
     FavoriteBorderOutlined,
     FavoriteOutlined,
   } from "@mui/icons-material";
-import StarIcon from '@mui/icons-material/Star';
+
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
 import { useNavigate } from "react-router-dom";
@@ -82,9 +82,7 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
                     <Typography>{likeCount}</Typography>
                 </FlexBetween>
             </FlexBetween>
-            <IconButton>
-                <StarIcon sx={{ color: primary }} />
-            </IconButton>
+
       </FlexBetween>
     </WidgetWrapper>
     };
@@ -122,9 +120,6 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
                     <Typography>{likeCount}</Typography>
                 </FlexBetween>
             </FlexBetween>
-            <IconButton>
-                <StarIcon sx={{ color: primary }} />
-            </IconButton>
       </FlexBetween>
     </WidgetWrapper>
     };

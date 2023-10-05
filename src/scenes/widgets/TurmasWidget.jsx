@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTurmas } from "state";
-import PostWidget from "./PostWidget";
 import TurmaWidget from "./TurmaWidget";
 
 const TurmasWidget = () => {

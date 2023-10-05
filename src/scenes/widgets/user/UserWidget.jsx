@@ -8,7 +8,7 @@ import { Box, Typography, Divider, useTheme, useMediaQuery, Button, InputBase } 
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonagemWidget from "../PersonagenWidget";
@@ -18,10 +18,13 @@ import Dropzone from "react-dropzone";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CropOriginalIcon from '@mui/icons-material/CropOriginal';
 import { editSave, inputLink } from "./components/SocialProfiles";
+import CancelIcon from '@mui/icons-material/Cancel';
+import { setLogout } from "state";
 
 const UserWidget = ({ userId, actorProfile }) => {
   const [user, setUser] = useState(null);
   const [edit, setEdit] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
   const myProfile = actorProfile ? useSelector((state) => state.user.actor) === userId : useSelector((state) => state.user.id) === userId;
@@ -34,27 +37,35 @@ const UserWidget = ({ userId, actorProfile }) => {
   const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
   // const url = 'http://localhost:5000';
   const getUser = async () => {
-    
-    if(actorProfile){     
-     setUser(null);
-     const response = await fetch(url+`/actors/${userId}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    }).then(async (data) => {
-      const actor = await data.json();
-      console.log(actor);
-      setUser(actor);
-    });
-    } else {
-      // setUser(null);
-      const response = await fetch(url+`/users/${userId}`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }).then(async (data) => {
-        setUser(await data.json());
-        console.log(user)
-      });
-    }
+        if(actorProfile){     
+          setUser(null);
+          fetch(url+`/actors/${userId}`, {
+              method: "GET",
+              headers: { Authorization: `Bearer ${token}` },
+            }).then( async (res) => {
+              if (res.status >= 400) {
+                dispatch(setLogout());
+                navigate('/');
+              } else {
+                return res;
+              }
+          }).then(async (data) => {
+              const actor = await data.json();
+              setUser(actor);
+            }).catch((err) => {
+              console.log(err);
+              dispatch(setLogout());
+              navigate('/');
+            });        
+        } else {
+          setUser(null);
+          const response = await fetch(url+`/users/${userId}`, {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          }).then(async (data) => {
+            setUser(await data.json());
+          });
+        }
   };
 
 
@@ -127,10 +138,21 @@ const UserWidget = ({ userId, actorProfile }) => {
     </Dropzone>
   };
 
+
+
+
   const editPic = () => {
     return <div>{!edit ? <ManageAccountsOutlined onClick={() => {
       setEdit(!edit)
-    }} /> : <Button
+    }} /> : <>
+  <FlexBetween gap={"0.5rem"}>
+  <Button
+          onClick={() => {
+            setEdit(false);
+          }}>
+      <CancelIcon fontSize="large" />
+      </Button>
+  <Button
     disabled={!image}
     onClick={handlePatchPicture}
     sx={{
@@ -140,7 +162,10 @@ const UserWidget = ({ userId, actorProfile }) => {
     }}
   >
     Salvar
-  </Button>}</div>
+  </Button>
+  
+  </FlexBetween>
+    </>}</div>
   }
 
   const profileUser = () => {

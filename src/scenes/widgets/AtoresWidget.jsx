@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import AtorWidget from "./AtorWidget";
 import WidgetWrapper from "components/WidgetWrapper";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
+import { Box, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
+import StarIcon from '@mui/icons-material/Star';
 const AtoresWidget = ({ listaAtores }) => {
     
   const { palette } = useTheme();
@@ -23,11 +23,12 @@ const AtoresWidget = ({ listaAtores }) => {
       color={palette.neutral.dark}
       variant="h5"
       fontWeight="500"
-      sx={{ mb: "1.5rem" }}
+      sx={{ mb: "0.5rem" }}
     >
-      Coletivo
+    <StarIcon fontSize="small" sx={{ color: palette.primary.main }} /> Elenco
     </Typography>
-    <Box display="flex" flexDirection="column" gap="1.5rem"> 
+    <Divider />
+    <Box mt={"0.5rem"} display="flex" flexDirection="column" gap="1.5rem"> 
     { atores && atores.map(
         ({
             id,

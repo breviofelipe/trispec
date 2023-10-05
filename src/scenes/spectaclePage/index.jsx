@@ -16,11 +16,11 @@ import { setTurma } from "state";
 const SpectaclePage = () => {
   
   const [ searchparams ] = useSearchParams();
+  const turmaId = searchparams.get("turmaId");
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const turmas = useSelector((state) => state.turmas);
   const role = useSelector((state) => state.user.role);
   const [turmaInfo, setTurmaInfo] = useState();
-  const turmaId = searchparams.get("turmaId");
   const userId = useSelector((state) => state.user.id);
   const user = useSelector((state) => state.user);
   const picturePath = useSelector((state) => state.user.picturePath);
@@ -102,8 +102,6 @@ const SpectaclePage = () => {
           <Divider />
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
           {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
-          <Divider />
-          <AdvertWidget />     
         </Box>
       </Box>
   </Box>

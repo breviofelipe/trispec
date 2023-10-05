@@ -1,20 +1,18 @@
 import { Box, Divider, useMediaQuery } from "@mui/material";
-import DocumentoWidget from "./drive/DocumentoWidget";
-import YoutubeWidget from "./youtube/YoutubeWidget";
-import TaskSWidget from "../TasksWidget";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "state";
+import { setLogout, setPosts } from "state";
 import TurmaPostWidget from "./TurmaPostWidget";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const TurmaPostsWidget = ({picturePath, turmaId}) => {
+const TurmaPostsWidget = ({ turmaId }) => {
     // const url = "http://localhost:5000";
     const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts);
     const token = useSelector((state) => state.token);
-
+    const navigate = useNavigate();
     const getPosts = async () => {
         try {
           const response = await fetch(url+`/turmas/${turmaId}/posts`, {
@@ -25,6 +23,8 @@ const TurmaPostsWidget = ({picturePath, turmaId}) => {
           dispatch(setPosts({ posts: data }));
         } catch (err) {
           console.log(err);
+          dispatch(setLogout());
+          navigate('/');
         }
       };
 

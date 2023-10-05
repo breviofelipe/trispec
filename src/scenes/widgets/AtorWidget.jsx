@@ -1,5 +1,5 @@
 
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Divider, Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
 import Masks from "components/masks/Masks";
@@ -58,6 +58,7 @@ const AtorWidget = ({
       }
       <Typography color={medium} fontSize="0.75rem"><Masks quantidade={estrelas} /></Typography>
     </Box>
+    <Divider />
   </FlexBetween>
 </FlexBetween>);
 }

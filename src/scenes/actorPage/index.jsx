@@ -18,6 +18,7 @@ const ActorPage = () => {
   const [actorUserPicturePath, setActorUserPicturePath] = useState();
   const [actorOpnions, setActorOpnions] = useState();
   const turma = useSelector((state) => state.turma);
+  const myProfile = useSelector((state) => state.user.actor) === actorId;
   
     useEffect(() => {
       window.scrollTo(0,0);
@@ -43,7 +44,7 @@ const ActorPage = () => {
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
         >
-          <FormMasks actorId={actorId} opnions={actorOpnions}/>
+          {!myProfile && <FormMasks actorId={actorId} opnions={actorOpnions}/>}
           {isNonMobileScreens && <AtoresWidget listaAtores={turma.atores} />}
          {isNonMobileScreens ?  <Box m="2rem 0" /> : <Divider />}
             {!isNonMobileScreens && (
