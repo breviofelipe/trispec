@@ -94,6 +94,8 @@ const SpectaclePage = () => {
       </Box>
       <Divider />
       <Box>
+          {role === "ACTOR" ? <UserWidget actorProfile userId={user.actor} /> : <UserWidget userId={userId} />}
+          <Divider />
           <TurmaWidget turmaId={turmaId} />
           <Divider />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
