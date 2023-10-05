@@ -6,7 +6,7 @@ import Navbar from "scenes/navbar";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
-import UserWidget from "scenes/widgets/UserWidget";
+import UserWidget from "scenes/widgets/user/UserWidget";
 import FormMasks from "./Form";
 
 

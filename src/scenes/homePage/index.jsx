@@ -1,7 +1,7 @@
 import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "scenes/navbar";
-import UserWidget from "scenes/widgets/UserWidget";
+import UserWidget from "scenes/widgets/user/UserWidget";
 
 import FriendListWidget from "scenes/widgets/FriendListWidget";
 import TurmasWidget from "scenes/widgets/TurmasWidget";

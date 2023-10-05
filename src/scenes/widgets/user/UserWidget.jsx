@@ -4,52 +4,144 @@ import {
 } from "@mui/icons-material";
 import { FaTheaterMasks } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi'
-import { Box, Typography, Divider, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery, Button, InputBase } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PersonagemWidget from "./PersonagenWidget";
+import PersonagemWidget from "../PersonagenWidget";
 import DnaLoading from "components/dna/DnaLoading";
 import Masks from "components/masks/Masks";
+import Dropzone from "react-dropzone";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import CropOriginalIcon from '@mui/icons-material/CropOriginal';
+import { editSave, inputLink } from "./components/SocialProfiles";
 
-const UserWidget = ({ userId, picturePath, actorProfile }) => {
+const UserWidget = ({ userId, actorProfile }) => {
   const [user, setUser] = useState(null);
-  const { palette } = useTheme();
+  const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
-  const myProfile = useSelector((state) => state.user.id) === userId;
+  const myProfile = actorProfile ? useSelector((state) => state.user.actor) === userId : useSelector((state) => state.user.id) === userId;
   const ator = useSelector((state) => state.ator);
+  const { palette } = useTheme();
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-
-  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com'
-
+  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+  // const url = 'http://localhost:5000';
   const getUser = async () => {
     
-    if(actorProfile){   
+    if(actorProfile){     
      setUser(null);
      const response = await fetch(url+`/actors/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     }).then(async (data) => {
       const actor = await data.json();
+      console.log(actor);
       setUser(actor);
     });
     } else {
-      setUser(null);
+      // setUser(null);
       const response = await fetch(url+`/users/${userId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       }).then(async (data) => {
         setUser(await data.json());
+        console.log(user)
       });
     }
   };
+
+
+  const openNewTab = (social) => {
+    if(social === 'TIKTOK'){
+      window.open(user.linkTiktok, '_blank', 'noreferrer');
+    }if(social === 'INSTAGRAM'){
+      window.open(user.linkInstagram, '_blank', 'noreferrer');
+    }  
+  }
+
+  const handlePatchPicture = async () => {
+    if (image) {
+        setUser(null);
+        getBase64FromUrl(image);
+    }
+  };
+  const [image, setImage] = useState(null);
+
+  const getBase64FromUrl = (image) => {
+    var reader = new FileReader();
+     reader.readAsDataURL(image);
+     reader.onload = async function () {
+        const body = {
+          file: reader.result,
+          userId: userId
+        };
+        const response = await fetch(url+`/actors/picture`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify(body),
+        });
+        const data = await response.json();
+        setUser(await data);
+        setImage(null);
+        setEdit(false);
+     };
+     reader.onerror = function (error) {
+       console.log('Error: ', error);
+      };
+  }
+  const drop = () => {
+    return <Dropzone
+    acceptedFiles=".jpg,.jpeg,.png"
+    minSize={1024}
+    maxSize={1072000}
+    multiple={false}
+    onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+  >
+    {({ getRootProps, getInputProps }) => (
+      <Box
+        {...getRootProps()}
+        border={`2px dashed ${palette.primary.main}`}
+        p="1rem"
+        sx={{ "&:hover": { cursor: "pointer" } }}
+      >
+        <input {...getInputProps()} />
+        {!image ? (  
+          <CropOriginalIcon fontSize="large"/>
+        ) : (
+          <div>
+            <FlexBetween>
+            <Typography>{image.name}</Typography>
+            <EditOutlinedIcon />
+          </FlexBetween>
+          </div>
+        )}
+      </Box>
+    )}
+    </Dropzone>
+  };
+
+  const editPic = () => {
+    return <div>{!edit ? <ManageAccountsOutlined onClick={() => {
+      setEdit(!edit)
+    }} /> : <Button
+    disabled={!image}
+    onClick={handlePatchPicture}
+    sx={{
+      color: palette.background.alt,
+      backgroundColor: palette.primary.main,
+      borderRadius: "3rem",
+    }}
+  >
+    Salvar
+  </Button>}</div>
+  }
 
   const profileUser = () => {
     return <WidgetWrapper isMobile={!isNonMobileScreens} >
@@ -60,7 +152,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
         onClick={() => navigate(`/profile/${userId}`)}
       >
         <FlexBetween gap="1rem">
-          <UserImage image={picturePath} />
+          {user && <UserImage image={user.picturePath} />}
           <Box>
             <Typography
               variant="h4"
@@ -149,6 +241,13 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
       </Box>
     </WidgetWrapper>
   };
+
+  const [link, setLink] = useState();
+  const [linkUpdate, setLinkUpdate] = useState();
+
+  const [linkTiktok, setLinkTiktok] = useState();
+  const [linkUpdateTikTok, setLinkUpdateTikTok] = useState();
+
   const profileActor = () => {
     return <div>{!isNonMobileScreens && <Divider />}<WidgetWrapper isMobile={!isNonMobileScreens} >
     {/* FIRST ROW */}
@@ -158,7 +257,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
       pb="1.1rem"
     >
       <FlexBetween gap="1rem">
-        <UserImage image={picturePath} />
+        {user && edit ?  drop() : <UserImage image={user.userPicturePath} />}
         <Box>
           <Typography
             variant="h4"
@@ -171,7 +270,7 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
               },
             }}
           >
-            {user.nome} {user.sobrenome}
+            {user?.nome} {user?.sobrenome}
           </Typography>
             <FlexBetween gap="0.5rem">
               <Typography color={medium}><Masks quantidade={user.estrelas} /></Typography>
@@ -181,11 +280,9 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
               </FlexBetween>
         </Box>
       </FlexBetween>
-      {myProfile && <ManageAccountsOutlined />}
+      { myProfile && editPic() }
     </FlexBetween>
-
     <Divider />
-
     {/* SECOND ROW */}
     <Box p="1rem 0">
       <Box display="flex" justifyContent="space-between" >
@@ -213,7 +310,9 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
     {/* THIRD ROW */}
     <Box p="1rem 0">
       <FlexBetween mb="0.5rem">
-        <PersonagemWidget nome={user.personagens[0].nome}/>
+        {!!user && user.personagens?.map((personagem) => {
+          return <PersonagemWidget key={personagem.nome} nome={personagem.nome}/>
+        })}
       </FlexBetween>
       <FlexBetween>
 
@@ -230,28 +329,32 @@ const UserWidget = ({ userId, picturePath, actorProfile }) => {
 
       <FlexBetween gap="1rem" mb="0.5rem">
         <FlexBetween gap="1rem">
-          <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1695226935/assets/hqbgog5hxihchcormwcv.png" alt="twitter" />
+          <img style={{width : 25, height: 25}} src="https://res.cloudinary.com/dosghtja7/image/upload/v1696357234/instagram_dvirc4.png" alt="instagram" />
+          {linkTiktok ? inputLink('https://instagram.com/', linkUpdateTikTok, setLinkUpdateTikTok) : 
           <Box>
-            <Typography color={main} fontWeight="500">
-              Twitter
+            <Typography onClick={() => {openNewTab('INSTAGRAM')}} color={main} fontWeight="500">
+              Instagram
             </Typography>
-            <Typography color={medium}>Social Network</Typography>
-          </Box>
+            <Typography color={medium}>Network Platform</Typography>         
+          </Box> 
+         } 
         </FlexBetween>
-        { myProfile && <EditOutlined sx={{ color: main }} /> }
+        { myProfile && editSave(linkTiktok, setLinkTiktok, "TIKTOK", userId, linkUpdateTikTok, token, setUser) }
       </FlexBetween>
 
       <FlexBetween gap="1rem">
         <FlexBetween gap="1rem">
-          <img src="https://res.cloudinary.com/dosghtja7/image/upload/v1695226935/assets/xuhn8qzudys1buehzmlt.png" alt="linkedin" />
-          <Box>
-            <Typography color={main} fontWeight="500">
-              Linkedin
-            </Typography>
-            <Typography color={medium}>Network Platform</Typography>
-          </Box>
+          <img style={{width : 25, height: 25}} src="https://res.cloudinary.com/dosghtja7/image/upload/v1696357233/tik-tok_g5e5lg.png" alt="tiktok" />
+          {link ? inputLink('https://tiktok.com/@...', linkUpdate, setLinkUpdate ) : 
+            <Box>
+              <Typography onClick={() => {openNewTab('TIKTOK')}} color={main} fontWeight="500">
+                Tiktok
+              </Typography>
+              <Typography color={medium}>Social Network</Typography>
+            </Box>
+          }
         </FlexBetween>
-        { myProfile && <EditOutlined sx={{ color: main }} /> }
+        { myProfile && editSave(link, setLink, "INSTAGRAM", userId, linkUpdate, token, setUser) }
       </FlexBetween>
     </Box>
   </WidgetWrapper></div>

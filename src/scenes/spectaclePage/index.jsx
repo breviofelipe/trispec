@@ -8,7 +8,7 @@ import AtoresWidget from "scenes/widgets/AtoresWidget";
 import PersonagensWidget from "scenes/widgets/PersonagensWidget";
 import TurmaPostWidget from "scenes/widgets/PostarTurmaWidget";
 import TurmaWidget from "scenes/widgets/TurmaWidget";
-import UserWidget from "scenes/widgets/UserWidget";
+import UserWidget from "scenes/widgets/user/UserWidget";
 import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
 import { setTurma } from "state";
 
@@ -19,16 +19,26 @@ const SpectaclePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const turmas = useSelector((state) => state.turmas);
   const role = useSelector((state) => state.user.role);
-  const user = useSelector((state) => state.user);
   const [turmaInfo, setTurmaInfo] = useState();
   const turmaId = searchparams.get("turmaId");
   const userId = useSelector((state) => state.user.id);
+  const user = useSelector((state) => state.user);
   const picturePath = useSelector((state) => state.user.picturePath);
   const dispatch = useDispatch();
+  const [ator, setAtor] = useState();
 
   const getEspetaculo = () => {
     window.scrollTo(0,0);
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
+    let ator = null;
+    if(data != undefined && role === 'ACTOR'){
+      try {
+        ator = data[0].atores?.filter((ator) => ator.userId === userId)[0];
+        setAtor(ator);
+      } catch ( err ){
+        console.log(err);
+      }
+    }
     if(data !== undefined){
       setTurmaInfo(data[0]);
       dispatch(setTurma({ turma: data[0] }));
@@ -50,7 +60,7 @@ const SpectaclePage = () => {
       justifyContent="center"
     >
       <Box flexBasis={"26%"}>
-          <UserWidget userId={userId} picturePath={picturePath} />
+          {role === "ACTOR" ? <UserWidget actorProfile userId={user.actor} /> : <UserWidget userId={userId} />}
           <Box m="2rem 0" />
           <TurmaWidget turmaId={turmaId} />
       </Box>
