@@ -354,7 +354,7 @@ const UserWidget = ({ userId, actorProfile }) => {
             </Box>
           }
         </FlexBetween>
-        { myProfile && editSave(link, setLink, "INSTAGRAM", userId, linkUpdate, token, setUser) }
+        { myProfile && editSave(link, setLink, "TIKTOK", userId, linkUpdate, token, setUser) }
       </FlexBetween>
     </Box>
   </WidgetWrapper></div>
