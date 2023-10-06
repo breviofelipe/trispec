@@ -139,9 +139,7 @@ import { saveAs } from "file-saver";
           </FlexBetween>
   
           { picturePath &&  <IconButton onClick={() => {
-            saveAs(picturePath, new Date().toLocaleTimeString()
-            .replace(",", "_")
-            .replace(" ", "_")+".png")
+            saveAs(picturePath, userId+".png")
           }}>
             <DownloadIcon />
           </IconButton>
