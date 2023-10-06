@@ -7,6 +7,8 @@ import FriendListWidget from "scenes/widgets/FriendListWidget";
 import TurmasWidget from "scenes/widgets/TurmasWidget";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import WidgetWrapper from "components/WidgetWrapper";
+import SquareAnimation from "components/square/SquareAnimation";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -14,6 +16,10 @@ const HomePage = () => {
   const role = useSelector((state) => state.user.role);
   const turmas = useSelector((state) => state.turmas);
   const navigete = useNavigate();
+
+  if(turmas === null){
+    return <WidgetWrapper><SquareAnimation /></WidgetWrapper>
+  }
 
   if(role === "ACTOR"){
     const turmaId = turmas.filter(turma => turma.atores.filter(ator => ator.userId === id)).map(turma => turma.turmaId)[0];
