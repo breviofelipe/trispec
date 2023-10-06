@@ -1,9 +1,8 @@
 import {
-    ChatBubbleOutlineOutlined,
     FavoriteBorderOutlined,
-    FavoriteOutlined,
-    ShareOutlined,
+    FavoriteOutlined
   } from "@mui/icons-material";
+import DownloadIcon from '@mui/icons-material/Download';
 import { Box, Divider, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
@@ -16,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { format } from 'date-fns';  
 import ptBR from 'date-fns/locale/pt-BR';
 import { useNavigate } from "react-router-dom";
+import { saveAs } from "file-saver";
   const TurmaPostWidget = ({
     id,
     key,
@@ -138,9 +138,14 @@ import { useNavigate } from "react-router-dom";
             </FlexBetween>
           </FlexBetween>
   
-          <IconButton>
-            <ShareOutlined />
+          { picturePath &&  <IconButton onClick={() => {
+            saveAs(picturePath, new Date().toLocaleTimeString()
+            .replace(",", "_")
+            .replace(" ", "_")+".png")
+          }}>
+            <DownloadIcon />
           </IconButton>
+          }
         </FlexBetween>
       </WidgetWrapper>
     );
