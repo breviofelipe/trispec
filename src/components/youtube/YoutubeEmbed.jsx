@@ -1,4 +1,3 @@
-import WidgetWrapper from "components/WidgetWrapper";
 import "./YoutubeEmbed.css";
 
 const YoutubeEmbed = ({ embedId }) => {
