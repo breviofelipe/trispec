@@ -1,9 +1,10 @@
 
 import classNames from "classnames";
 import "./card.css";
-import { useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { FaTheaterMasks } from "react-icons/fa";
 import UserImage from "components/UserImage";
+import FlexBetween from "components/FlexBetween";
 
 const Card = ({ onClick, card, index, isInactive, isFlipped, isDisabled }) => {
     const { palette } = useTheme();
@@ -24,7 +25,9 @@ const Card = ({ onClick, card, index, isInactive, isFlipped, isDisabled }) => {
             <FaTheaterMasks className="mask" size={36} color={palette.neutral.dark} />
           </div>
           <div className="card-face card-back-face">
-            <UserImage image={card.image}/>
+            <FlexBetween style={{justifyContent: "center"}} >
+              <UserImage image={card.image} size="75px"/>
+            </FlexBetween>
           </div>
         </div>
       );

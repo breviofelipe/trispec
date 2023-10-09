@@ -9,7 +9,6 @@ import AdvertWidget from "scenes/widgets/AdvertWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import WidgetWrapper from "components/WidgetWrapper";
 import SquareAnimation from "components/square/SquareAnimation";
-import MemoryGameWidget from "scenes/widgets/games/memory/MemoryGameWidget";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -46,11 +45,8 @@ const HomePage = () => {
         </Box>
         <Box
           flexBasis={"42%"} >
-          <MemoryGameWidget />
-          <Box m="2rem 0" />
           <TurmasWidget />
           <Box m="2rem 0" />
-          
         </Box>
         <Box flexBasis="26%">
           <FriendListWidget userId={id} />
@@ -72,8 +68,6 @@ const HomePage = () => {
       <Box>
         <Divider />
         <UserWidget userId={id} picturePath={picturePath} />
-        <Divider />
-        <MemoryGameWidget />
         <Divider />
         <TurmasWidget />
       </Box>

@@ -2,8 +2,10 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import { FaTheaterMasks } from 'react-icons/fa'
+import { useSelector } from "react-redux";
+import { createSearchParams, useNavigate } from "react-router-dom";
 const PersonagemWidget = ({
-    _id,
+    id,
     nome,
     espetaculoId,
     __v,
@@ -13,10 +15,11 @@ const PersonagemWidget = ({
 
 
   const { palette } = useTheme();
-
+  const turma = useSelector((state) => state.turma);
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
-
+  const navigate = useNavigate();
+  const ator = turma.atores.filter((actor) => actor.personagens.filter((personagem => personagem.id === id))[0])[0];
   return (<FlexBetween>
     <FlexBetween gap="1rem">
     <Box width="50px" height="50px"> 
@@ -25,6 +28,10 @@ const PersonagemWidget = ({
 
     <Box minWidth="10rem"
       onClick={() => {
+        navigate({
+          pathname:`/ator/`, search: createSearchParams({ 'actorId': ator.id }).toString()
+        })
+
       }}
     >
       <Typography
@@ -40,9 +47,9 @@ const PersonagemWidget = ({
       >
         {nome}
       </Typography>
-        <Typography color={medium} fontSize="0.75rem">
-                    {nome}
-        </Typography>
+        {ator && <Typography color={medium} fontSize="0.75rem">
+                    {ator.nome}
+                 </Typography>}
     </Box>
     </FlexBetween>
     </FlexBetween>

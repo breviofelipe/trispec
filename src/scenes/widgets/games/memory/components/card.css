@@ -20,6 +20,7 @@
   }
   .card .card-face.card-back-face {
     transform: rotateY(180deg);
+    margin-top: 1.5rem;
   }
   .card.is-flipped {
     transform: rotateY(180deg);
