@@ -72,7 +72,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://res.cloudinary.com/dosghtja7/image/upload/v1695165233/assets/ebzamu1mpuurfoohbekt.jpg`}
+          src={`https://res.cloudinary.com/dosghtja7/image/upload/v1697237500/assets/gk2y6ywofz1xdb3tidbl.jpg`}
         />
       </WidgetWrapper>
     );
