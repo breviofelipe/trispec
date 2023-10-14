@@ -82,10 +82,10 @@ const MemoryGameWidget = ({ turmaId, player }) => {
         if (Object.keys(clearedCards).length === cards.length /2 ) {
           setShowModal(true);
           const highScore = Math.min(moves, bestScore);
-          setBestScore(highScore);
-          // localStorage.setItem("bestScore", highScore);
-          patchBestScore(player, highScore);
-
+          if(bestScore > highScore){
+            setBestScore(highScore);
+            patchBestScore(player, highScore);
+          }
         }
       };
       const evaluate = () => {
