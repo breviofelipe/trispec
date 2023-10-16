@@ -9,6 +9,8 @@ import AdvertWidget from "scenes/widgets/AdvertWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import WidgetWrapper from "components/WidgetWrapper";
 import SquareAnimation from "components/square/SquareAnimation";
+import QuestionsGameWidget from "scenes/widgets/games/questions/QuestionsGameWidget";
+import PostComponent from "components/post/PostComponent";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -45,6 +47,9 @@ const HomePage = () => {
         </Box>
         <Box
           flexBasis={"42%"} >
+          {/* <PostComponent titulo={"teste"}  subtitulo={"teste sub"}/> */}
+          <QuestionsGameWidget />
+          <Box m="2rem 0" />
           <TurmasWidget />
           <Box m="2rem 0" />
         </Box>
@@ -69,6 +74,7 @@ const HomePage = () => {
         <Divider />
         <UserWidget userId={id} picturePath={picturePath} />
         <Divider />
+        <QuestionsGameWidget />
         <TurmasWidget />
       </Box>
       <Box>

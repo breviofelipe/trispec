@@ -102,6 +102,7 @@ const UserWidget = ({ userId, actorProfile }) => {
         setUser(await data);
         setImage(null);
         setEdit(false);
+        // navigate(0);
      };
      reader.onerror = function (error) {
        console.log('Error: ', error);

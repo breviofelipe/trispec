@@ -19,7 +19,6 @@ import WidgetWrapper from "components/WidgetWrapper";
 import FlexBetween from "components/FlexBetween";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { useSelector } from "react-redux";
-import DnaLoading from "components/dna/DnaLoading";
 import LoadingComponent from "components/loading/Loading";
 
 function shuffleCards(array) {
@@ -190,22 +189,24 @@ const MemoryGameWidget = ({ turmaId, player }) => {
         <FlexBetween gap="1rem" mb={"0.5rem"}>
             <FlexBetween gap="1rem">
                 <SportsEsportsIcon fontSize="large" />
+                
                 <Box>
-                    <Typography
-                    variant="h4"
-                    color={dark}
-                    fontWeight="500"
-                    sx={{
-                        "&:hover": {
-                        color: palette.primary.light,
-                        cursor: "pointer",
-                        },
-                    }}
-                    >
-                    Cade o personagem?
-                    </Typography>
-                    <Typography color={medium}>Encontre os personagens com o menor número de movimentos.</Typography>
-                </Box>
+                <Typography
+                variant="h4"
+                color={dark}
+                fontWeight="500"
+                sx={{
+                    "&:hover": {
+                    color: palette.primary.light,
+                    cursor: "pointer",
+                    },
+                }}
+                >
+                Cade o personagem?
+                </Typography>
+                <Typography color={medium}>Encontre os personagens com o menor número de movimentos.</Typography>
+            </Box>
+
             </FlexBetween>
         </FlexBetween>
       <Divider />

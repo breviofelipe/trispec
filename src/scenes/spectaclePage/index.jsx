@@ -12,6 +12,7 @@ import UserWidget from "scenes/widgets/user/UserWidget";
 import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
 import { setTurma } from "state";
 import MemoryGameWidget from "scenes/widgets/games/memory/MemoryGameWidget";
+import QuestionsGameWidget from "scenes/widgets/games/questions/QuestionsGameWidget";
 
 
 const SpectaclePage = () => {
@@ -70,6 +71,7 @@ const SpectaclePage = () => {
         flexBasis={"42%"}
       >
           {turmaInfo && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
+          <QuestionsGameWidget />
           {role === "ACTOR" && turmaInfo && <div><MemoryGameWidget player={ator.nome+' '+ ator.sobrenome} turmaId={turmaInfo.id} /><Box m="2rem 0" /></div>}
           {turmaInfo && <div><PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /><Box m="2rem 0"/></div> }
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
@@ -103,6 +105,7 @@ const SpectaclePage = () => {
           <Divider />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           <Divider />
+          <QuestionsGameWidget />
           {role === "ACTOR" && turmaInfo && <div><MemoryGameWidget player={ator.nome+' '+ ator.sobrenome} turmaId={turmaInfo.id} /><Divider /></div>}
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
           {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
