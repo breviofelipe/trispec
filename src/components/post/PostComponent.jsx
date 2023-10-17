@@ -41,7 +41,9 @@ function PostComponent({ titulo, subtitulo, content, msg }) {
        <Box mt={"2rem"} width={"100%"} height={"auto"} minHeight={"200px"} display={"flex"} justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
           {content}
        </Box>
-       <Box>{msg}</Box>
+       <FlexBetween>
+        <Box></Box><Box>{msg}</Box>
+       </FlexBetween>
     </WidgetWrapper>
     {isNonMobileScreens ? <Box m={"2rem"} /> : <Divider/>}
     </div>;

@@ -7,10 +7,8 @@ import FriendListWidget from "scenes/widgets/FriendListWidget";
 import TurmasWidget from "scenes/widgets/TurmasWidget";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import WidgetWrapper from "components/WidgetWrapper";
-import SquareAnimation from "components/square/SquareAnimation";
 import QuestionsGameWidget from "scenes/widgets/games/questions/QuestionsGameWidget";
-import PostComponent from "components/post/PostComponent";
+
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
