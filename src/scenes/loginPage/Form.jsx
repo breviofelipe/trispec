@@ -10,7 +10,7 @@ import {
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin, setTurmas } from "state";
 import Dropzone from "react-dropzone";
@@ -107,18 +107,21 @@ const Form = () => {
               token: loggedIn.token,
             })
           );
-          if(loggedIn.role === "ACTOR"){
+          if(loggedIn.user.role === "ACTOR"){
             
               const url = "https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/turmas";
               // const url = "http://localhost:5000/turmas";
           
               const response = await fetch(url, {
                 method: "GET",
-                headers: { Authorization: `Bearer ${token}` },
+                headers: { Authorization: `Bearer ${loggedIn.token}` },
               });
               const data = await response.json();
               dispatch(setTurmas({ turmas: data }));
-            
+              const turmaId = data.filter(turma => turma.atores.filter(ator => ator.userId === loggedIn.user.actor)).map(turma => turma.turmaId)[0];
+              navigate({
+                pathname:`/spectacle/`, search: createSearchParams({'turmaId': turmaId }).toString()
+              });
           }
           setLoading(false)
           navigate("/home");
