@@ -19,6 +19,9 @@ const PersonagemWidget = ({
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
   const navigate = useNavigate();
+
+  if (turma === undefined) return null;
+  
   const ator = turma.atores.filter((actor) => actor.personagens.filter((personagem => personagem.id === id))[0])[0];
   return (<FlexBetween>
     <FlexBetween gap="1rem">

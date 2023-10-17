@@ -1,38 +1,24 @@
-import WidgetWrapper from "components/WidgetWrapper";
+
 import "./QuestionsGameWidget.css";
-import FlexBetween from "components/FlexBetween";
-import { Box, Button, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { Box, Typography} from "@mui/material";
 import PostComponent from "components/post/PostComponent";
 import PostButton from "components/PostButton";
 import { useEffect, useState } from "react";
-import LoadingComponent from "components/loading/Loading";
-import { useSelector } from "react-redux";
 import Question from "./components/Question";
-
-const questions = [
-    { pergunta: "Hamlet está satisfeito com o casamento de sua mãe com seu tio após a morte de seu pai.", resposta: "Falso" },
-    { pergunta: "Horácio viu o fantasma do rei, pai de Hamlet, na plataforma e tentou falar com ele.", resposta: "Verdadeiro" }
-];
-
-
-
 
 const QuestionsGameWidget = () => {  
     
     const titulo = "Verdadeiro ou Falso?";
     const subtitulo ="Sabe tudo sobre nosso espetáculos?";
-    const [gameState, setGame] = useState();
-
-    
-
+    const [gameState, setGame] = useState();  
+    const [perguntaRespondidas, setPerguntaRespondidas] = useState();
     useEffect(() => {
         setGame(start());
     }, []);
         
     const start = () => {
         const quest = () => {
-            return <Question setGame={setGame} next={quest}/>
+            return <Question setGame={setGame} next={quest} setPerguntaRespondidas={setPerguntaRespondidas}/>
         }
        return <Box>
             <Typography mb={"2rem"} variant="h4">Teste seus conhecimentos sobre o roteiro do Alex Capelossa, com afirmações extraidas do texto.</Typography>
@@ -43,7 +29,7 @@ const QuestionsGameWidget = () => {
     };
     
    
-    return <PostComponent titulo={titulo} subtitulo={subtitulo} content={gameState} />
+    return <PostComponent titulo={titulo} subtitulo={subtitulo} content={gameState} msg={perguntaRespondidas}/>
 }
 
 export default QuestionsGameWidget;

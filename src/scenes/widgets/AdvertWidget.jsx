@@ -16,8 +16,6 @@ const AdvertWidget = () => {
       try{
         if(window.adsbygoogle){
           window.adsbygoogle.push({});
-          console.log("Ads push");
-          console.log(window.adsbygoogle);      
         } else {
           scriptElement.addEventListener("load", handleScriptLoad);
           console.log("waiting until adsense lib loaded")

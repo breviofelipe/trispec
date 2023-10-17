@@ -19,10 +19,6 @@ const HomePage = () => {
   const turmas = useSelector((state) => state.turmas);
   const navigete = useNavigate();
 
-  if(turmas === null){
-    return <WidgetWrapper><SquareAnimation /></WidgetWrapper>
-  }
-
   if(role === "ACTOR"){
     const turmaId = turmas.filter(turma => turma.atores.filter(ator => ator.userId === id)).map(turma => turma.turmaId)[0];
     navigete({
@@ -30,6 +26,7 @@ const HomePage = () => {
     });
 
   }
+  
   const nonMobile = ()  => {
     return <Box>
       <Navbar />

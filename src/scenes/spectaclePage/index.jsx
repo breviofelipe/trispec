@@ -1,7 +1,7 @@
 import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";

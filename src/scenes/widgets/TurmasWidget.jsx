@@ -11,6 +11,8 @@ const TurmasWidget = () => {
 
   const getTurmas = async () => {
     const url = "https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/turmas";
+    // const url = "http://localhost:5000/turmas";
+
     const response = await fetch(url, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },

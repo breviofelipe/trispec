@@ -2,9 +2,9 @@
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import WidgetWrapper from "../WidgetWrapper";
 import FlexBetween from 'components/FlexBetween';
-import { Box, Button, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
 
-function PostComponent({ titulo, subtitulo, content }) {
+function PostComponent({ titulo, subtitulo, content, msg }) {
 
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
@@ -41,6 +41,7 @@ function PostComponent({ titulo, subtitulo, content }) {
        <Box mt={"2rem"} width={"100%"} height={"auto"} minHeight={"200px"} display={"flex"} justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
           {content}
        </Box>
+       <Box>{msg}</Box>
     </WidgetWrapper>
     {isNonMobileScreens ? <Box m={"2rem"} /> : <Divider/>}
     </div>;
