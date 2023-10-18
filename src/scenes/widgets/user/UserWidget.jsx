@@ -4,7 +4,7 @@ import {
 } from "@mui/icons-material";
 import { FaTheaterMasks } from 'react-icons/fa'
 import { HiOutlineUserGroup } from 'react-icons/hi'
-import { Box, Typography, Divider, useTheme, useMediaQuery, Button, InputBase } from "@mui/material";
+import { Box, Typography, Divider, useTheme, useMediaQuery, Button } from "@mui/material";
 import UserImage from "components/UserImage";
 import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";

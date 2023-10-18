@@ -31,8 +31,8 @@ const registerSchema = yup.object().shape({
 
 const loginSchema = yup.object().shape({
   // email: yup.string().email("invalid email").required("required"),
-  email: yup.string().required("required"),
-  password: yup.string().required("required"),
+  email: yup.string().required("obrigatrio"),
+  password: yup.string().required("obrigatrio"),
 });
 
 const initialValuesRegister = {
@@ -89,7 +89,7 @@ const Form = () => {
     const loggedInResponse = await fetch("https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+      body: JSON.stringify(values).toLowerCase(),
     });
      try {
       
@@ -128,7 +128,7 @@ const Form = () => {
         } 
       } else {
         setLoading(false)
-        setWarning("e-mail ou senha inválido!")
+        setWarning("usuário ou senha inválido!")
         }
     } catch (err) {
         setLoading(false)
@@ -253,7 +253,7 @@ const Form = () => {
             )}
 
             <TextField
-              label="Email"
+              label="Nome"
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.email}
@@ -263,7 +263,7 @@ const Form = () => {
               sx={{ gridColumn: "span 4" }}
             />
             <TextField
-              label="Password"
+              label="Senha"
               type="password"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -288,7 +288,7 @@ const Form = () => {
                 "&:hover": { color: palette.primary.main },
               }}
             >
-              {isLogin ? "LOGIN" : "REGISTER"}
+              {isLogin ? "Entrar" : "REGISTER"}
             </Button>
             <Typography
               onClick={() => {
