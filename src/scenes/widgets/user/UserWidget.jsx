@@ -112,7 +112,7 @@ const UserWidget = ({ userId, actorProfile }) => {
     return <Dropzone
     acceptedFiles=".jpg,.jpeg,.png"
     minSize={1024}
-    maxSize={1072000}
+    maxSize={10072000}
     multiple={false}
     onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
   >
