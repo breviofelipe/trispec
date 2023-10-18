@@ -129,7 +129,7 @@ const UserWidget = ({ userId, actorProfile }) => {
         ) : (
           <div>
             <FlexBetween>
-            <Typography>{image.name.length > 9 ? image.name.substring(0, 7)+'...' : image.name}</Typography>
+            <Typography>{image.name.length > 10 ? image.name.substring(0, 10)+'...' : image.name}</Typography>
             <EditOutlinedIcon />
           </FlexBetween>
           </div>
@@ -284,7 +284,7 @@ const UserWidget = ({ userId, actorProfile }) => {
     >
       <FlexBetween gap="1rem">
         {user && edit ?  drop() : <UserImage image={user.userPicturePath} />}
-        <Box>
+        {!edit && <Box>
           <Typography
             variant="h4"
             color={dark}
@@ -304,7 +304,7 @@ const UserWidget = ({ userId, actorProfile }) => {
               <FlexBetween gap="0.5rem">
                 {user && user.opnions && <Typography color={medium}>{user.opnions.length} opniões</Typography> }
               </FlexBetween>
-        </Box>
+        </Box>}
       </FlexBetween>
       { myProfile && editPic() }
     </FlexBetween>
