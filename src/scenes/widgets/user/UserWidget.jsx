@@ -129,7 +129,7 @@ const UserWidget = ({ userId, actorProfile }) => {
         ) : (
           <div>
             <FlexBetween>
-            <Typography>{image.name}</Typography>
+            <Typography>{image.name.length > 9 ? image.name.substring(0, 7)+'...' : image.name}</Typography>
             <EditOutlinedIcon />
           </FlexBetween>
           </div>
