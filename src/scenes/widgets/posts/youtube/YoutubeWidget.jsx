@@ -108,7 +108,6 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
             <FlexBetween gap="1rem">
                 <FlexBetween gap="0.3rem">
                     <IconButton onClick={() => {
-                        console.log("click like you");
                         patchLike();
                     }}>
                     {isLiked ? (

@@ -33,7 +33,6 @@ const AtorWidget = ({
         navigate({
           pathname:`/ator/`, search: createSearchParams({ 'actorId': id }).toString()
         })
-        console.log("click id"+turmaId)
       }}
     >
       <Typography

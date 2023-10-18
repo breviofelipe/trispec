@@ -41,7 +41,6 @@ const Question = ({ setGame, next, setPerguntaRespondidas }) => {
             body: JSON.stringify(body)
             });
             const data = await response.json();
-            console.log(data)
             setPerguntaRespondidas(data.message);
     }
 
