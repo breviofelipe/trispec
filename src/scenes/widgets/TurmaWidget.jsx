@@ -19,13 +19,11 @@ import { useNavigate, createSearchParams } from "react-router-dom";
   const turmas = useSelector((state) => state.turmas);
   const navigate = useNavigate();
   const [espetaculoInfo, setEstaculo] = useState();
-  const { id, picturePath } = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const getEspetaculo = () => {
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
     if(data !== undefined){
       setEstaculo(data[0]);
-      console.log(data[0]);
     }
   };
 

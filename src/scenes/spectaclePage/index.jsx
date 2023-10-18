@@ -43,7 +43,6 @@ const SpectaclePage = () => {
     }
     if(data !== undefined){
       setTurmaInfo(data[0]);
-      console.log(data[0]);
       dispatch(setTurma({ turma: data[0] }));
     }
   };
