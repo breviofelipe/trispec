@@ -114,6 +114,7 @@ const UserWidget = ({ userId, actorProfile }) => {
     minSize={1024}
     maxSize={10072000}
     multiple={false}
+    autoProcessQueue={false}
     onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
   >
     {({ getRootProps, getInputProps }) => (
