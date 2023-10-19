@@ -22,7 +22,7 @@ import {
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { FaTheaterMasks } from 'react-icons/fa';
@@ -32,7 +32,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-
+  const role = user.role;
+  const turma = useSelector((state) => state.turma);
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
@@ -51,7 +52,10 @@ const Navbar = () => {
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
-          onClick={() => navigate("/home")}
+          onClick={() => {role == 'ADMIN' ? navigate("/home") : navigate({
+            pathname:`/spectacle/`, search: createSearchParams({'turmaId': turma.turmaId }).toString()
+          })
+        }}
           sx={{
             "&:hover": {
               color: primaryLight,
