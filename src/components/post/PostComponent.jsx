@@ -4,7 +4,7 @@ import WidgetWrapper from "../WidgetWrapper";
 import FlexBetween from 'components/FlexBetween';
 import { Box, Divider, Typography, useMediaQuery, useTheme } from '@mui/material';
 
-function PostComponent({ titulo, subtitulo, content, msg }) {
+function PostComponent({ titulo, subtitulo, icon, content, msg }) {
 
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
@@ -14,10 +14,11 @@ function PostComponent({ titulo, subtitulo, content, msg }) {
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     
     return <div>
+        {!isNonMobileScreens && <Divider />}
         <WidgetWrapper isMobile={!isNonMobileScreens}>
        <FlexBetween>
        <FlexBetween gap="1rem">
-            <SportsEsportsIcon fontSize="large" />
+            {icon ? icon : <SportsEsportsIcon fontSize="large" /> }
             <Box mb={"0.5rem"}>
                 <Typography
                     variant="h4"

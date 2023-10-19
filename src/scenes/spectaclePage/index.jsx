@@ -70,10 +70,8 @@ const SpectaclePage = () => {
         flexBasis={"42%"}
       >
           {turmaInfo && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
-          <QuestionsGameWidget />
-          {role === "ACTOR" && turmaInfo && <div><MemoryGameWidget player={ator.nome+' '+ ator.sobrenome} turmaId={turmaInfo.id} /><Box m="2rem 0" /></div>}
           {turmaInfo && <div><PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /><Box m="2rem 0"/></div> }
-          {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
+          {turmaInfo && <TurmaPostsWidget turmaId={turmaInfo.id}/>}
         </Box>      
         <Box flexBasis="26%">
             {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
@@ -98,14 +96,12 @@ const SpectaclePage = () => {
       </Box>
       <Divider />
       <Box>
-          {role === "ACTOR" ? <UserWidget actorProfile userId={user.actor} /> : <UserWidget userId={userId} />}
+          {role === "ACTOR" && <UserWidget actorProfile userId={user.actor} />}
           <Divider />
           <TurmaWidget turmaId={turmaId} />
           <Divider />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           <Divider />
-          <QuestionsGameWidget />
-          {role === "ACTOR" && turmaInfo && <div><MemoryGameWidget player={ator.nome+' '+ ator.sobrenome} turmaId={turmaInfo.id} /><Divider /></div>}
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
           {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
         </Box>

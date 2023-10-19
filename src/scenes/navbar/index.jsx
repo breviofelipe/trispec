@@ -24,7 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
-
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import { FaTheaterMasks } from 'react-icons/fa';
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
@@ -85,9 +86,10 @@ const Navbar = () => {
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
           </IconButton>
-          <Message sx={{ fontSize: "25px" }} />
-          <Notifications sx={{ fontSize: "25px" }} />
-          <Help sx={{ fontSize: "25px" }} />
+          <IconButton onClick={() => navigate("/games")} >
+            <SportsEsportsIcon sx={{ fontSize: "25px" }} />
+          </IconButton>
+          <IconButton><Notifications  sx={{ fontSize: "25px" }} /></IconButton>
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
@@ -160,9 +162,10 @@ const Navbar = () => {
                 <LightMode sx={{ color: dark, fontSize: "25px" }} />
               )}
             </IconButton>
-            <Message sx={{ fontSize: "25px" }} />
+            <IconButton onClick={() => navigate("/games")} >
+              <SportsEsportsIcon sx={{ fontSize: "25px" }} />
+            </IconButton>
             <Notifications sx={{ fontSize: "25px" }} />
-            <Help sx={{ fontSize: "25px" }} />
             <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}

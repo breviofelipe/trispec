@@ -10,6 +10,8 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import SpectaclePage from "scenes/spectaclePage";
 import ActorPage from 'scenes/actorPage';
+import PersonagemPage from 'scenes/personagemPage';
+import GamePage from 'scenes/gamePage';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -38,6 +40,14 @@ function App() {
             <Route
               path="/ator/"
               element={isAuth ? <ActorPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/personagem/"
+              element={isAuth ? <PersonagemPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/games"
+              element={isAuth ? <GamePage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>

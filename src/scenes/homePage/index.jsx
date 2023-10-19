@@ -5,9 +5,7 @@ import UserWidget from "scenes/widgets/user/UserWidget";
 
 import FriendListWidget from "scenes/widgets/FriendListWidget";
 import TurmasWidget from "scenes/widgets/TurmasWidget";
-import AdvertWidget from "scenes/widgets/AdvertWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import QuestionsGameWidget from "scenes/widgets/games/questions/QuestionsGameWidget";
 
 
 const HomePage = () => {
@@ -38,13 +36,9 @@ const HomePage = () => {
         <Box flexBasis={"26%"}>
           <UserWidget userId={id} picturePath={picturePath} />
           <Box m="2rem 0" />
-          <AdvertWidget />
         </Box>
         <Box
           flexBasis={"42%"} >
-          {/* <PostComponent titulo={"teste"}  subtitulo={"teste sub"}/> */}
-          <QuestionsGameWidget />
-          <Box m="2rem 0" />
           <TurmasWidget />
           <Box m="2rem 0" />
         </Box>
@@ -66,18 +60,11 @@ const HomePage = () => {
       justifyContent="space-between"
     >
       <Box>
-        <Divider />
         <UserWidget userId={id} picturePath={picturePath} />
         <Divider />
-        <QuestionsGameWidget />
         <TurmasWidget />
       </Box>
-      <Box>
-        <Divider />
-        <AdvertWidget />
-        <Divider />
-      </Box>
-    </Box>
+     </Box>
   </Box>
   }
 

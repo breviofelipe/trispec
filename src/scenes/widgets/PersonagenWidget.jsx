@@ -29,14 +29,7 @@ const PersonagemWidget = ({
       <FaTheaterMasks size={36} />
     </Box>
 
-    <Box minWidth="10rem"
-      onClick={() => {
-        navigate({
-          pathname:`/ator/`, search: createSearchParams({ 'actorId': ator.id }).toString()
-        })
-
-      }}
-    >
+    <Box minWidth="10rem" onClick={() => navigate("/personagem/")} >
       <Typography
         color={main}
         variant="h5"
@@ -50,7 +43,12 @@ const PersonagemWidget = ({
       >
         {nome}
       </Typography>
-        {ator && <Typography color={medium} fontSize="0.75rem">
+        {ator && <Typography onClick={() => {
+        navigate({
+          pathname:`/ator/`, search: createSearchParams({ 'actorId': ator.id }).toString()
+        })
+
+      }} color={medium} fontSize="0.75rem">
                     {ator.nome}
                  </Typography>}
     </Box>
