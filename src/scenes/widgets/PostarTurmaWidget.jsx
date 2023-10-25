@@ -2,8 +2,7 @@ import {
     EditOutlined,
     DeleteOutlined,
     AttachFileOutlined,
-    ImageOutlined,
-    MoreHorizOutlined,
+    ImageOutlined
   } from "@mui/icons-material";
   import {
     Box,

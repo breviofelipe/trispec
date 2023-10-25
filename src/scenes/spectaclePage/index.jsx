@@ -1,7 +1,7 @@
 import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
 import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
@@ -11,8 +11,6 @@ import TurmaWidget from "scenes/widgets/TurmaWidget";
 import UserWidget from "scenes/widgets/user/UserWidget";
 import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
 import { setTurma } from "state";
-import MemoryGameWidget from "scenes/widgets/games/memory/MemoryGameWidget";
-import QuestionsGameWidget from "scenes/widgets/games/questions/QuestionsGameWidget";
 
 
 const SpectaclePage = () => {

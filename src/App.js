@@ -42,7 +42,7 @@ function App() {
               element={isAuth ? <ActorPage /> : <Navigate to="/" />}
             />
             <Route
-              path="/personagem/"
+              path="/personagem"
               element={isAuth ? <PersonagemPage /> : <Navigate to="/" />}
             />
             <Route
