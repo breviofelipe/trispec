@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
-import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
 import PersonagensWidget from "scenes/widgets/PersonagensWidget";
-import TurmaPostWidget from "scenes/widgets/PostarTurmaWidget";
-import TurmaWidget from "scenes/widgets/TurmaWidget";
+import PostarTurmaWidget from "scenes/widgets/posts/PostarTurmaWidget";
+
 import UserWidget from "scenes/widgets/user/UserWidget";
 import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
-import { setTurma } from "state";
+import { setAtor, setTurma } from "state";
+import TurmaWidget from "scenes/widgets/turmas/TurmaWidget";
 
 
 const SpectaclePage = () => {
@@ -25,8 +25,7 @@ const SpectaclePage = () => {
   const user = useSelector((state) => state.user);
   const picturePath = useSelector((state) => state.user.picturePath);
   const dispatch = useDispatch();
-  const [ator, setAtor] = useState();
-
+  
   const getEspetaculo = () => {
     window.scrollTo(0,0);
     const data = turmas.filter((turma) => turma.turmaId === turmaId);
@@ -34,7 +33,7 @@ const SpectaclePage = () => {
     if(data != undefined && role === 'ACTOR'){
       try {
         ator = data[0].atores?.filter((ator) => ator.userId === userId)[0];
-        setAtor(ator);
+        dispatch(setAtor({ ator: ator }));
       } catch ( err ){
         console.log(err);
       }
@@ -67,14 +66,13 @@ const SpectaclePage = () => {
       <Box
         flexBasis={"42%"}
       >
-          {turmaInfo && role === 'ADMIN' && <div><TurmaPostWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
+          {turmaInfo && role === 'ADMIN' && <div><PostarTurmaWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
           {turmaInfo && <div><PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /><Box m="2rem 0"/></div> }
           {turmaInfo && <TurmaPostsWidget turmaId={turmaInfo.id}/>}
         </Box>      
         <Box flexBasis="26%">
             {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
           <Box m="2rem 0" />
-          <AdvertWidget />
         </Box>
     </Box>
   </Box>
@@ -90,7 +88,7 @@ const SpectaclePage = () => {
       justifyContent="center"
     >
       <Box>
-          { role === 'ADMIN' && <div><Divider /><TurmaPostWidget picturePath={picturePath} /><Divider /></div>}
+          { role === 'ADMIN' && <div><Divider /><PostarTurmaWidget picturePath={picturePath} /><Divider /></div>}
       </Box>
       <Divider />
       <Box>

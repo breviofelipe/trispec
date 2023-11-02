@@ -9,8 +9,6 @@ function PostComponent({ titulo, subtitulo, icon, content, msg }) {
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
     const medium = palette.neutral.medium;
-    const main = palette.neutral.main;
-
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
     
     return <div>
@@ -38,10 +36,12 @@ function PostComponent({ titulo, subtitulo, icon, content, msg }) {
         </FlexBetween>
         {isNonMobileScreens ? <Box m={"2rem"} /> : <Divider />}
        </FlexBetween>
-       <Divider />
-       <Box mt={"2rem"} width={"100%"} height={"auto"} minHeight={"200px"} display={"flex"} justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
+       {content && <div><Divider />
+        <Box mt={"2rem"} width={"100%"} height={"auto"} minHeight={"200px"} display={"flex"} justifyContent={"center"} alignItems={"center"} textAlign={"center"} >
           {content}
        </Box>
+       </div>
+       }
        <FlexBetween>
         <Box></Box><Box>{msg}</Box>
        </FlexBetween>

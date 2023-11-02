@@ -15,17 +15,17 @@ import {
     useMediaQuery,
     TextField,
   } from "@mui/material";
-  import AddTaskIcon from '@mui/icons-material/AddTask';
+  // import AddTaskIcon from '@mui/icons-material/AddTask';
   import FlexBetween from "components/FlexBetween";
   import Dropzone from "react-dropzone";
   import UserImage from "components/UserImage";
   import WidgetWrapper from "components/WidgetWrapper";
   import { useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
-  import { setPosts } from "state";
+  import { setPosts, setPostsPersonagem } from "state";
   import YouTubeIcon from '@mui/icons-material/YouTube';
 import LoadingComponent from "components/loading/Loading";
-  const PostarTurmaWidget = ({ picturePath }) => {
+  const PostarTurmaWidget = ({ picturePath, personagemPost }) => {
     const dispatch = useDispatch();
     const [isImage, setIsImage] = useState(false);
     const [isYoutube, setIsYoutube] = useState(false);
@@ -52,7 +52,7 @@ import LoadingComponent from "components/loading/Loading";
           const body = {
             file: reader.result,
             userId: id,
-            turmaId: turmaId,
+            turmaId: personagemPost ? personagemPost : turmaId,
             description: post,
             link: ''
           }
@@ -64,6 +64,7 @@ import LoadingComponent from "components/loading/Loading";
           const data = await response.json();
           getPosts();
           setImage(null);
+          setIsImage(!isImage);
        };
        reader.onerror = function (error) {
          console.log('Error: ', error);
@@ -80,7 +81,7 @@ import LoadingComponent from "components/loading/Loading";
         const body = {
           file: '',
           userId: id,
-          turmaId: turmaId,
+          turmaId: personagemPost ? personagemPost : turmaId,
           description: post,
           link: link
         }
@@ -96,7 +97,7 @@ import LoadingComponent from "components/loading/Loading";
         const body = {
           file: '',
           userId: id,
-          turmaId: turmaId,
+          turmaId: personagemPost ? personagemPost : turmaId,
           description: post,
           link: ''
         }
@@ -106,17 +107,24 @@ import LoadingComponent from "components/loading/Loading";
           body: JSON.stringify(body),
         });
         const data = await response.json();
+        if(data.status){
+          console.log("data teste"+ data.status);
+        }
         getPosts();
       }
     };
 
     const getPosts = async () => {
-      const response = await fetch(url+`/turmas/${turmaId}/posts`, {
+      const response = await fetch(url+`/turmas/${personagemPost ? personagemPost : turmaId}/posts`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
-      dispatch(setPosts({ posts: data }));
+      if(personagemPost){
+        dispatch(setPostsPersonagem({ postsPersonagem: data }));
+      } else {
+        dispatch(setPosts({ posts: data }));
+      }
       setPost("");
       setIsYoutube(false);
       setIsDoc(false);
@@ -265,11 +273,10 @@ import LoadingComponent from "components/loading/Loading";
                 <AttachFileOutlined sx={{ color: mediumMain }} />
                 <Typography color={mediumMain}>Documentos</Typography>
               </FlexBetween>
-              <FlexBetween gap="0.25rem">
+              {/* <FlexBetween gap="0.25rem">
                 <AddTaskIcon sx={{ color: mediumMain }} />
                 <Typography color={mediumMain}>Tarefas</Typography>
-              </FlexBetween> 
-  
+              </FlexBetween>  */}
             </>
           ) : (
             <>
@@ -279,9 +286,10 @@ import LoadingComponent from "components/loading/Loading";
             <FlexBetween gap="0.25rem" onClick={() => onClickLink("DOC")} >
               <AttachFileOutlined sx={{ color: mediumMain }} />
             </FlexBetween>
-            <FlexBetween gap="0.25rem">
+            {/* <FlexBetween gap="0.25rem">
               <AddTaskIcon sx={{ color: mediumMain }} />
-            </FlexBetween></>
+            </FlexBetween> */}
+            </>
           )}
   
           <Button

@@ -10,7 +10,7 @@ import FlexBetween from "components/FlexBetween";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import PersonagemWidget from "../PersonagenWidget";
 import DnaLoading from "components/dna/DnaLoading";
 import Masks from "components/masks/Masks";
@@ -21,7 +21,7 @@ import { editSave, inputLink } from "./components/SocialProfiles";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { setLogout } from "state";
 
-const UserWidget = ({ userId, actorProfile }) => {
+const UserWidget = ({ userId, actorProfile, notShowPersonagem = false }) => {
   const [user, setUser] = useState(null);
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
@@ -234,7 +234,12 @@ const UserWidget = ({ userId, actorProfile }) => {
     >
       <FlexBetween gap="1rem">
         {user && edit ?  drop() : <UserImage image={user.userPicturePath} />}
-        {!edit && <Box>
+        {!edit && <Box onClick={() => {
+            navigate({
+              pathname:`/ator/`, search: createSearchParams({ 'actorId': user.id }).toString()
+            })
+    
+          }}>
           <Typography
             variant="h4"
             color={dark}
@@ -284,17 +289,17 @@ const UserWidget = ({ userId, actorProfile }) => {
     <Divider />
 
     {/* THIRD ROW */}
-    <Box p="1rem 0">
+    {!notShowPersonagem && <Box p="1rem 0">
       <FlexBetween mb="0.5rem">
         {!!user && user.personagens?.map((personagem) => {
-          return <PersonagemWidget key={personagem.nome} nome={personagem.nome}/>
+          return <PersonagemWidget id={personagem.id} key={personagem.nome} nome={personagem.nome} notShowActor={true}/>
         })}
       </FlexBetween>
       <FlexBetween>
 
       </FlexBetween>
     </Box>
-
+    }
     <Divider />
 
     {/* FOURTH ROW */}

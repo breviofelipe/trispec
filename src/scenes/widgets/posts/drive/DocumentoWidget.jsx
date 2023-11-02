@@ -10,7 +10,7 @@ import {
 import StarIcon from '@mui/icons-material/Star';
 import DriverEmbed from "components/google/DriverEmbed";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, setPostPersonagem } from "state";
 import { useNavigate } from "react-router-dom";
 
 const DocumentoWidget = ({id, loggedInUserId, embedId, picturePath, description, subtitle, likes = false }) => {
@@ -48,6 +48,7 @@ const DocumentoWidget = ({id, loggedInUserId, embedId, picturePath, description,
         body: JSON.stringify({ userId: loggedInUserId }),
       });
       const updatedPost = await response.json();
+      dispatch(setPostPersonagem({ post: updatedPost }));
       dispatch(setPost({ post: updatedPost }));
     };
     const mobile = () => {

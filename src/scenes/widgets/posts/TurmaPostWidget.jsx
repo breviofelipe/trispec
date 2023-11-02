@@ -8,7 +8,7 @@ import FlexBetween from "components/FlexBetween";
 import UserImage from "components/UserImage";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, setPostPersonagem } from "state";
 import YoutubeWidget from "./youtube/YoutubeWidget";
 import DocumentoWidget from "./drive/DocumentoWidget";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,7 +27,8 @@ import { saveAs } from "file-saver";
     driveEmbedId,
     userPicturePath,
     createdAt,
-    likes
+    likes,
+    userName
 }) => {
     
     const dispatch = useDispatch();
@@ -43,9 +44,7 @@ import { saveAs } from "file-saver";
     const role = useSelector((state) => state.user.role);
     const navigate = useNavigate();
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-
-
-  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+    const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
     // const url = 'http://localhost:5000';
   
 
@@ -80,6 +79,8 @@ import { saveAs } from "file-saver";
         body: JSON.stringify({ userId: loggedInUserId }),
       });
       const updatedPost = await response.json();
+      
+      dispatch(setPostPersonagem({ post: updatedPost }));
       dispatch(setPost({ post: updatedPost }));
     };
 
@@ -95,18 +96,31 @@ import { saveAs } from "file-saver";
       </>
   }
   
+  const getNamePost = () => {
+
+    const nomePersonagem = turma.espetaculo.personagens.filter(personagem => personagem.id === turmaId);
+    if(nomePersonagem.length > 0){
+      return <Typography color={main} sx={{ ml: "0.5rem" }} >{nomePersonagem[0].nome}</Typography>
+    } else {
+      return <Typography color={main} sx={{ ml: "0.5rem" }}>{turma.turmaId}</Typography>
+    }
+  }
     return (
       <WidgetWrapper isMobile={!isNonMobileScreens} key={key}>
         <FlexBetween mb={"1rem"}>
             <FlexBetween gap="1rem">
                 <UserImage image={userPicturePath} size="48px" />
                 <Box>
-                    <Typography color={main} sx={{ ml: "0.5rem" }} >
-                        {turma.turmaId}
-                    </Typography>
+                   
+                {getNamePost()}
+
                     <Typography color={medium} fontSize="0.75rem" sx={{ ml: "0.5rem" }} >
-                        {getFormatedDate(createdAt)}
+                      {getFormatedDate(createdAt)}
+                    {userName &&
+                        <> by {userName}</>
+                    }
                     </Typography>
+                   
                 </Box>
             </FlexBetween>
             {role === 'ADMIN' && <DeleteIcon onClick={deletePost} /> }

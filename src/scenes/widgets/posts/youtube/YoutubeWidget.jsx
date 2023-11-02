@@ -11,9 +11,8 @@ import {
   } from "@mui/icons-material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+import { setPost, setPostPersonagem } from "state";
 import { useNavigate } from "react-router-dom";
-
 const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, subtitle, likes = false }) => {
     const { palette } = useTheme();
     const main = palette.neutral.main;
@@ -28,6 +27,8 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
     const dispatch = useDispatch(); 
     const navigate = useNavigate();
     const role = useSelector((state) => state.user.role);
+    
+    
     const deletePost = async () => {
         const response = await fetch(url+`/turmas/${id}/posts`, {
           method: "DELETE",
@@ -48,8 +49,11 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
         },
         body: JSON.stringify({ userId: loggedInUserId }),
       });
-      const updatedPost = await response.json();
-      dispatch(setPost({ post: updatedPost }));
+      
+        const updatedPost = await response.json();
+        dispatch(setPostPersonagem({ post: updatedPost }));
+        dispatch(setPost({ post: updatedPost }));
+      
     };
 
     const mobile = () => {

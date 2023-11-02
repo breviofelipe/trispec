@@ -1,7 +1,7 @@
   import { useEffect } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { setTasks } from "state";
-import TaskItem from "./item/TaskItem";
+import TaskItem from "../../components/item/TaskItem";
 import WidgetWrapper from "components/WidgetWrapper";
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
   

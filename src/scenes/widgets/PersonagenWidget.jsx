@@ -7,10 +7,7 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 const PersonagemWidget = ({
     id,
     nome,
-    espetaculoId,
-    __v,
-    createdAt,
-    updatedAt
+    notShowActor = false
   }) => {
 
 
@@ -46,7 +43,7 @@ const PersonagemWidget = ({
         {nome}
       </Typography>
       </Box>
-        {atores && atores.map( ator => {
+        {!notShowActor && atores && atores.map( ator => {
           return  <div><Box onClick={() => {
             navigate({
               pathname:`/ator/`, search: createSearchParams({ 'actorId': ator.id }).toString()

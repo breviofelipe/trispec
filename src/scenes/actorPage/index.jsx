@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
-import AdvertWidget from "scenes/widgets/AdvertWidget";
 import AtoresWidget from "scenes/widgets/AtoresWidget";
-import TurmaWidget from "scenes/widgets/TurmaWidget";
+import TurmaWidget from "scenes/widgets/turmas/TurmaWidget";
 import UserWidget from "scenes/widgets/user/UserWidget";
 import FormMasks from "./Form";
 
@@ -59,7 +58,6 @@ const ActorPage = () => {
           <Box flexBasis="26%">
             <TurmaWidget turmaId={turma.turmaId} />      
             <Box m="2rem 0" />
-            <AdvertWidget />
           </Box>
         )}
       </Box>
