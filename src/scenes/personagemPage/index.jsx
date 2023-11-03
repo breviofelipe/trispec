@@ -1,5 +1,5 @@
 import PageSchemaComponent from "../../components/page/PageSchemaComponent";
-import PersonagensWidget from "scenes/widgets/PersonagensWidget";
+import PersonagensWidget from "scenes/widgets/personagens/PersonagensWidget";
 import { useSelector } from "react-redux";
 import PostComponent from "components/post/PostComponent";
 import { FaTheaterMasks } from 'react-icons/fa';

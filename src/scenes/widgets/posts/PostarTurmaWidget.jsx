@@ -25,7 +25,7 @@ import {
   import { setPosts, setPostsPersonagem } from "state";
   import YouTubeIcon from '@mui/icons-material/YouTube';
 import LoadingComponent from "components/loading/Loading";
-  const PostarTurmaWidget = ({ picturePath, personagemPost }) => {
+  const PostarTurmaWidget = ({ picturePath, personagemPost, turmaId}) => {
     const dispatch = useDispatch();
     const [isImage, setIsImage] = useState(false);
     const [isYoutube, setIsYoutube] = useState(false);
@@ -37,7 +37,7 @@ import LoadingComponent from "components/loading/Loading";
     const { palette } = useTheme();
     const { id } = useSelector((state) => state.user);
     const token = useSelector((state) => state.token);
-    const turmaId = useSelector((state) => state.turma.id);
+    // const turmaId = useSelector((state) => state.turma.id);
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     const mediumMain = palette.neutral.mediumMain;
     const medium = palette.neutral.medium;

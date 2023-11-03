@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
-import AtoresWidget from "scenes/widgets/AtoresWidget";
-import PersonagensWidget from "scenes/widgets/PersonagensWidget";
+import AtoresWidget from "scenes/widgets/atores/AtoresWidget";
+import PersonagensWidget from "scenes/widgets/personagens/PersonagensWidget";
 import PostarTurmaWidget from "scenes/widgets/posts/PostarTurmaWidget";
 
 import UserWidget from "scenes/widgets/user/UserWidget";
 import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
 import { setAtor, setTurma } from "state";
 import TurmaWidget from "scenes/widgets/turmas/TurmaWidget";
+import PageSchemaComponent from "components/page/PageSchemaComponent";
 
 
 const SpectaclePage = () => {
@@ -48,67 +49,32 @@ const SpectaclePage = () => {
     getEspetaculo();
   },[turmaId])
 
-  const nonMobile = () => {
-    return <Box>
-    <Navbar />
-    <Box
-      width="100%"
-      padding="2rem 6%"
-      display={"flex"}
-      gap="2rem"
-      justifyContent="center"
-    >
-      <Box flexBasis={"26%"}>
-          {role === "ACTOR" ? <UserWidget actorProfile userId={user.actor} /> : <UserWidget userId={userId} />}
-          <Box m="2rem 0" />
-          <TurmaWidget turmaId={turmaId} />
-      </Box>
-      <Box
-        flexBasis={"42%"}
-      >
-          {turmaInfo && role === 'ADMIN' && <div><PostarTurmaWidget picturePath={picturePath} /><Box m="2rem 0" /></div>}
-          {turmaInfo && <div><PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /><Box m="2rem 0"/></div> }
-          {turmaInfo && <TurmaPostsWidget turmaId={turmaInfo.id}/>}
-        </Box>      
-        <Box flexBasis="26%">
-            {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
-          <Box m="2rem 0" />
-        </Box>
-    </Box>
-  </Box>
+  const topContent = () => {
+    return <>{role === "ACTOR" && <div><UserWidget actorProfile userId={user.actor} />{isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</div>}
+    <TurmaWidget turmaId={turmaId} /></>
   }
 
-  const mobile = () => {
-    return <Box>
-    <Navbar />
-    <Box
-      width="100%"
-      display={ "block" }
-      gap="2rem"
-      justifyContent="center"
-    >
-      <Box>
-          { role === 'ADMIN' && <div><Divider /><PostarTurmaWidget picturePath={picturePath} /><Divider /></div>}
-      </Box>
-      <Divider />
-      <Box>
-          {role === "ACTOR" && <UserWidget actorProfile userId={user.actor} />}
-          <Divider />
-          <TurmaWidget turmaId={turmaId} />
-          <Divider />
+  const mainContent = () => {
+
+    const post = () => {
+      return <div>
+        {!isNonMobileScreens && <Divider />}
+        {turmaInfo && <PostarTurmaWidget turmaId={turmaInfo.turmaId} picturePath={picturePath} />}
+        {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</div>
+    }
+
+    return <>
+          { role === 'ADMIN' && post()}
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
-          <Divider />
+          {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
-          {turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />} 
-        </Box>
-      </Box>
-  </Box>
+    </>
   }
-  
 
-  return (<>{isNonMobileScreens ? nonMobile() : mobile()}</>
-    
-  );
+  const lastContent = () => {
+      return <>{turmaInfo && <AtoresWidget listaAtores={turmaInfo.atores} />}</> 
+  }
+   return <PageSchemaComponent topContent={topContent()} main={mainContent()} lastContent={lastContent()} /> 
 };
 
 export default SpectaclePage;

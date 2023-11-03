@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/user/UserWidget";
 
-import FriendListWidget from "scenes/widgets/FriendListWidget";
+import FriendListWidget from "scenes/widgets/utils/FriendListWidget";
 import TurmasWidget from "scenes/widgets/turmas/TurmasWidget";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import PageSchemaComponent from "components/page/PageSchemaComponent";

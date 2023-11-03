@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "scenes/navbar";
-import AtoresWidget from "scenes/widgets/AtoresWidget";
+import AtoresWidget from "scenes/widgets/atores/AtoresWidget";
 import TurmaWidget from "scenes/widgets/turmas/TurmaWidget";
 import UserWidget from "scenes/widgets/user/UserWidget";
 import FormMasks from "./Form";
+import PageSchemaComponent from "components/page/PageSchemaComponent";
 
 
 const ActorPage = () => {
@@ -28,41 +29,26 @@ const ActorPage = () => {
       setActorOpnions(opnions);
   },[searchparams, turma])
 
-  return (<Box>
-      <Navbar />
-      <Box
-        width="100%"
-        padding={isNonMobileScreens ? "2rem 6%" : undefined}
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap="2rem"
-        justifyContent="center"
-      >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget actorProfile userId={actorId} picturePath={actorUserPicturePath} />  
-        </Box>
-        <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-        >
-          {!myProfile && <FormMasks actorId={actorId} opnions={actorOpnions}/>}
-          {isNonMobileScreens && <AtoresWidget listaAtores={turma.atores} />}
-         {isNonMobileScreens ?  <Box m="2rem 0" /> : <Divider />}
-            {!isNonMobileScreens && (
-                <Box flexBasis="26%">
-                  <AtoresWidget listaAtores={turma.atores} />
-                  <Divider />         
-                  <TurmaWidget turmaId={turma.turmaId} />
-                </Box>
-              )}
-          </Box>      
-        {isNonMobileScreens && (
-          <Box flexBasis="26%">
-            <TurmaWidget turmaId={turma.turmaId} />      
-            <Box m="2rem 0" />
-          </Box>
-        )}
-      </Box>
-    </Box>
-  )
+  const topContent = () => {
+    return <><UserWidget actorProfile userId={actorId} picturePath={actorUserPicturePath} /></>
+  }
+
+  const mainContent = () => {
+    return <>{!myProfile && <FormMasks actorId={actorId} opnions={actorOpnions}/>}
+              <TurmaWidget turmaId={turma.turmaId} />
+              {isNonMobileScreens ?  <Box m="2rem 0" /> : <Divider />}
+              </>
+  }
+
+  const lastContent = () => {
+    return <><AtoresWidget listaAtores={turma.atores} />          
+    {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
+    </>
+  }
+
+  return <PageSchemaComponent topContent={topContent()} main={mainContent()} lastContent={lastContent()} />
 };
+
+
 
 export default ActorPage;

@@ -11,7 +11,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import PersonagemWidget from "../PersonagenWidget";
+import PersonagemWidget from "../personagens/PersonagenWidget";
 import DnaLoading from "components/dna/DnaLoading";
 import Masks from "components/masks/Masks";
 import Dropzone from "react-dropzone";
