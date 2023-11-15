@@ -84,9 +84,11 @@ const Form = () => {
     }
   };
 
+  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+  const urlEnv = process.env.REACT_APP_HOST_ARCANE;
   const login = async (values, onSubmitProps) => {
     setLoading(true);
-    const loggedInResponse = await fetch("https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/auth/login", {
+    const loggedInResponse = await fetch(urlEnv+"/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values).toLowerCase(),

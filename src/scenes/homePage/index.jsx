@@ -1,6 +1,5 @@
 import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
-import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/user/UserWidget";
 
 import FriendListWidget from "scenes/widgets/utils/FriendListWidget";
@@ -9,6 +8,8 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 import PageSchemaComponent from "components/page/PageSchemaComponent";
 import PostComponent from "components/post/PostComponent";
 import InsightsIcon from '@mui/icons-material/Insights';
+import VideoPlayer from "components/cloudinaryVideo/VideoPlayer";
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -30,17 +31,23 @@ const HomePage = () => {
     const top = () => {
       return <><UserWidget userId={id} picturePath={picturePath} />
         {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+        <PostComponent titulo={"Insights"} subtitulo={"Como os atores estão se comportando."} content={"⛏️ Em construção..."} icon={<InsightsIcon fontSize="large" />} />
+        {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
       </>
     };
 
     const main = () => {
-      return <><TurmasWidget />
+      return <>
+      <PostComponent titulo={"Aula 1 - O Trabalho do ator"} subtitulo={"teste de stream..."} content={<VideoPlayer />} icon={<VideoCameraFrontIcon fontSize="large" />} />
+      {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
+      <TurmasWidget />
       {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}</>
+      
     }
 
     const lastContent = () => {
       return <>
-          <PostComponent titulo={"Insights"} subtitulo={"Como os atores estão se comportando."} content={"⛏️ Em construção..."} icon={<InsightsIcon fontSize="large" />} />
+          <PostComponent titulo={"Videos"} subtitulo={"teste de stream..."} content={<VideoPlayer />} icon={<VideoCameraFrontIcon fontSize="large" />} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
           <FriendListWidget userId={id} />
           {isNonMobileScreens ? <><Box m="2rem 0" /></> : <><Divider /></>}
