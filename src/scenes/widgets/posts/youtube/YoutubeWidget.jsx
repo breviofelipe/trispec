@@ -22,8 +22,7 @@ const YoutubeWidget = ({ id, loggedInUserId, embedId, picturePath, description, 
     const isLiked = likes ? Boolean(likes[loggedInUserId]) : false;
     const likeCount = Object.keys(likes ? likes : []).length;
     const token = useSelector((state) => state.token);
-    // const url = 'http://localhost:5000';
-    const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
+    const url = process.env.REACT_APP_HOST_ARCANE;
     const dispatch = useDispatch(); 
     const navigate = useNavigate();
     const role = useSelector((state) => state.user.role);

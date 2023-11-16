@@ -44,9 +44,8 @@ import { saveAs } from "file-saver";
     const role = useSelector((state) => state.user.role);
     const navigate = useNavigate();
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-    const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
-    // const url = 'http://localhost:5000';
-  
+    
+    const url = process.env.REACT_APP_HOST_ARCANE;
 
     const getFormatedDate = (str) => {
      try {

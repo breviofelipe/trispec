@@ -13,9 +13,9 @@ const ProfilePage = () => {
   const { userId } = useParams();
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-
+  const url = process.env.REACT_APP_HOST_ARCANE;
   const getUser = async () => {
-    const response = await fetch(`https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/users/${userId}`, {
+    const response = await fetch(url+`/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });

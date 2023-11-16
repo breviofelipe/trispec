@@ -21,7 +21,7 @@ const FormMasks = ({ actorId, opnions }) => {
     const [enviando, setEnviando] = useState(false);
     const dispatch = useDispatch();
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-    
+    const url = process.env.REACT_APP_HOST_ARCANE;
     const postOpnion = async () =>{
       {      
         let body = {
@@ -32,7 +32,7 @@ const FormMasks = ({ actorId, opnions }) => {
           'criatividade' : quantidadeCriatividade
         };
         setEnviando(true)
-        const response = await fetch("https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/actors/opinion", {
+        const response = await fetch(url+"/actors/opinion", {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
           body: JSON.stringify(body),

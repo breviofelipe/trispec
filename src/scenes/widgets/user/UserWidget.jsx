@@ -34,8 +34,8 @@ const UserWidget = ({ userId, actorProfile, notShowPersonagem = false }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
-  // const url = 'http://localhost:5000';
+  const url = process.env.REACT_APP_HOST_ARCANE;
+
   const getUser = async () => {
         if(actorProfile){     
           setUser(null);

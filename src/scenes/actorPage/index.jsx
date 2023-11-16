@@ -2,7 +2,6 @@ import { Box, Divider, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import Navbar from "scenes/navbar";
 import AtoresWidget from "scenes/widgets/atores/AtoresWidget";
 import TurmaWidget from "scenes/widgets/turmas/TurmaWidget";
 import UserWidget from "scenes/widgets/user/UserWidget";

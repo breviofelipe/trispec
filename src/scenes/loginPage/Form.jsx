@@ -61,6 +61,8 @@ const Form = () => {
   const isRegister = pageType === "register";
   const [warning, setWarning] = useState();
 
+  const urlEnv = process.env.REACT_APP_HOST_ARCANE;
+
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
     const formData = new FormData();
@@ -70,7 +72,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "http://192.168.0.6:3001/auth/register",
+      urlEnv+"/auth/register",
       {
         method: "POST",
         body: formData,
@@ -84,8 +86,7 @@ const Form = () => {
     }
   };
 
-  const url = 'https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com';
-  const urlEnv = process.env.REACT_APP_HOST_ARCANE;
+  
   const login = async (values, onSubmitProps) => {
     setLoading(true);
     const loggedInResponse = await fetch(urlEnv+"/auth/login", {
@@ -111,7 +112,7 @@ const Form = () => {
           );
           if(loggedIn.user.role === "ACTOR"){
             
-              const url = "https://arcane-thicket-81092-1ac7cecea9b8.herokuapp.com/turmas";
+              const url = urlEnv+"/turmas";
               // const url = "http://localhost:5000/turmas";
           
               const response = await fetch(url, {
