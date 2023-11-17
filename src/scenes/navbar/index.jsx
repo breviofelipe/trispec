@@ -152,7 +152,6 @@ const Navbar = () => {
               <Close />
             </IconButton>
           </Box>
-
           {/* MENU ITEMS */}
           <FlexBetween
             display="flex"
