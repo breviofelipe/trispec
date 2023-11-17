@@ -12,6 +12,7 @@ import TurmaPostsWidget from "scenes/widgets/posts/TurmaPostsWidget";
 import { setAtor, setTurma } from "state";
 import TurmaWidget from "scenes/widgets/turmas/TurmaWidget";
 import PageSchemaComponent from "components/page/PageSchemaComponent";
+import EstreiaWidget from "scenes/widgets/turmas/EstreiaWidget";
 
 
 const SpectaclePage = () => {
@@ -58,6 +59,7 @@ const SpectaclePage = () => {
 
     const post = () => {
       return <div>
+        
         {!isNonMobileScreens && <Divider />}
         {turmaInfo && <PostarTurmaWidget turmaId={turmaInfo.turmaId} picturePath={picturePath} />}
         {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</div>
@@ -65,6 +67,7 @@ const SpectaclePage = () => {
 
     return <>
           { role === 'ADMIN' && post()}
+          <EstreiaWidget />
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}

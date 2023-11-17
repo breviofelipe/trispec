@@ -1,16 +1,17 @@
 import { FaTheaterMasks } from 'react-icons/fa'
 import { FcInfo } from 'react-icons/fc'
 import FlexBetween from "components/FlexBetween";
-  
+import { format } from 'date-fns';  
+import ptBR from 'date-fns/locale/pt-BR';
 import WidgetWrapper from "components/WidgetWrapper";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Box, Divider, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate, createSearchParams } from "react-router-dom";
   
   
   const TurmaWidget = ({  
-    turmaId,
+    turmaId
   }) => {
 
   const { palette } = useTheme();
@@ -30,6 +31,19 @@ import { useNavigate, createSearchParams } from "react-router-dom";
   useEffect(() => {
     getEspetaculo();
   },[])
+
+  const getFormatedDate = (apresentacoes) => {
+    const apresentacoesFormat = apresentacoes.map(str => {
+      try {
+        let currentDate = format(new Date(str), 'dd MMMM yyyy',  { locale: ptBR });
+        return currentDate;
+       } catch ( err ){
+          console.log(err);
+          return '';
+        }
+    })
+    return apresentacoesFormat;
+   };
 
     return (
       <WidgetWrapper m="0 0" isMobile={!isNonMobileScreens}>
@@ -56,10 +70,12 @@ import { useNavigate, createSearchParams } from "react-router-dom";
                 },
               }}
             >
-              {turmaId}
+              {/* {turmaId} */}
+              {espetaculoInfo && espetaculoInfo.espetaculo.titulo}
             </Typography>
-            {espetaculoInfo && <Typography color={medium}>Espetáculo: {espetaculoInfo.espetaculo.titulo}</Typography>}
-          </Box>
+            {/* {espetaculoInfo && <Typography color={medium}>Espetáculo: {espetaculoInfo.espetaculo.titulo}</Typography>} */}
+            {espetaculoInfo && <Typography color={medium}>Estreia: {getFormatedDate(espetaculoInfo.espetaculo.apresentacoes)[0]}</Typography>}
+         </Box>
         </FlexBetween>
          
         <FcInfo size={24} />   
