@@ -9,7 +9,7 @@ const DateTimeDisplay = ({ value, type, isDanger }) => {
       <Typography margin={0} variant="h4"
                     color={dark}
                     fontWeight="500">{value}</Typography>
-      <Typography lineHeight="1rem" textTransform="uppercase" color={dark}>{type}</Typography>
+      <Typography lineHeight="1rem" textTransform="uppercase" color={palette.primary.main}>{type}</Typography>
     </div>
   );
 };

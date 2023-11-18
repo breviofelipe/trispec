@@ -295,9 +295,7 @@ const UserWidget = ({ userId, actorProfile, notShowPersonagem = false }) => {
           return <PersonagemWidget id={personagem.id} key={personagem.nome} nome={personagem.nome} notShowActor={true}/>
         })}
       </Box>
-      <FlexBetween>
 
-      </FlexBetween>
     </Box>
     }
     <Divider />
