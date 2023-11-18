@@ -61,7 +61,7 @@ const SpectaclePage = () => {
       return <div>
         
         {!isNonMobileScreens && <Divider />}
-        {turmaInfo && <PostarTurmaWidget turmaId={turmaInfo.turmaId} picturePath={picturePath} />}
+        {turmaInfo && <PostarTurmaWidget turmaId={turmaInfo.id} picturePath={picturePath} />}
         {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}</div>
     }
 

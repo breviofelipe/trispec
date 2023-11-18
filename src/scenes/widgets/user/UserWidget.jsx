@@ -289,12 +289,12 @@ const UserWidget = ({ userId, actorProfile, notShowPersonagem = false }) => {
     <Divider />
 
     {/* THIRD ROW */}
-    {!notShowPersonagem && <Box p="1rem 0">
-      <FlexBetween mb="0.5rem">
+    {!notShowPersonagem && <Box p="0.5rem 0">
+      <Box flexDirection={"column"} >
         {!!user && user.personagens?.map((personagem) => {
           return <PersonagemWidget id={personagem.id} key={personagem.nome} nome={personagem.nome} notShowActor={true}/>
         })}
-      </FlexBetween>
+      </Box>
       <FlexBetween>
 
       </FlexBetween>
