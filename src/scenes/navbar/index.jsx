@@ -25,7 +25,7 @@ import { setMode, setLogout } from "state";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import { FaTheaterMasks } from 'react-icons/fa';
+import SchoolIcon from '@mui/icons-material/School';
 import AddIcon from '@mui/icons-material/Add';
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -88,6 +88,9 @@ const Navbar = () => {
                   <AddIcon sx={{ fontSize: "25px" }} />
                 </IconButton> 
           }
+          <IconButton onClick={() => navigate("/workshops")} >
+            <SchoolIcon />
+          </IconButton>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -163,6 +166,9 @@ const Navbar = () => {
             { role === 'ADMIN' && <IconButton onClick={() => navigate("/cadastro/turma")} >
                 <AddIcon sx={{ fontSize: "25px" }} />
             </IconButton> }
+            <IconButton onClick={() => navigate("/workshops")} >
+              <SchoolIcon />
+            </IconButton>
             <IconButton
               onClick={() => dispatch(setMode())}
               sx={{ fontSize: "25px" }}

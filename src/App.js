@@ -13,6 +13,8 @@ import ActorPage from 'scenes/actorPage';
 import PersonagemPage from 'scenes/personagemPage';
 import GamePage from 'scenes/gamePage';
 import CadastroTurmaPage from 'scenes/cadastroTurmaPage';
+import WorkshopPage from 'scenes/workshopPage';
+import LearningPage from 'scenes/learningPage';
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -53,6 +55,14 @@ function App() {
             <Route
               path="/cadastro/turma"
               element={isAuth ? <CadastroTurmaPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/workshops"
+              element={isAuth ? <WorkshopPage /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/learning"
+              element={isAuth ? <LearningPage /> : <Navigate to="/" />}
             />
           </Routes>
         </ThemeProvider>
