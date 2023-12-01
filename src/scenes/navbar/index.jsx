@@ -20,13 +20,16 @@ import {
   Menu,
   Close,
 } from "@mui/icons-material";
+import Badge from '@mui/material/Badge';
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "state";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import FlexBetween from "components/FlexBetween";
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { FaTheaterMasks } from 'react-icons/fa';
+import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
+import SimpleListMenu from "components/menuNotifications/MenuNotifications";
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
@@ -41,10 +44,17 @@ const Navbar = () => {
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
-
   // const fullName = `${user.firstName} ${user.lastName}`;
   const fullName = `${user.firstName}`;
 
+  const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -1,
+      top: 7,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }));
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -98,7 +108,14 @@ const Navbar = () => {
           <IconButton onClick={() => navigate("/games")} >
             <SportsEsportsIcon sx={{ fontSize: "25px" }} />
           </IconButton>
-          <IconButton><Notifications  sx={{ fontSize: "25px" }} /></IconButton>
+          
+          <SimpleListMenu primaryItem={
+              <IconButton>
+                <StyledBadge badgeContent={4} color="primary">
+                  <Notifications  sx={{ fontSize: "25px" }} />
+                </StyledBadge>
+              </IconButton>
+            } />
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
@@ -176,7 +193,13 @@ const Navbar = () => {
             <IconButton onClick={() => navigate("/games")} >
               <SportsEsportsIcon sx={{ fontSize: "25px" }} />
             </IconButton>
-            <Notifications sx={{ fontSize: "25px" }} />
+            <SimpleListMenu primaryItem={
+              <IconButton>
+                <StyledBadge badgeContent={4} color="primary">
+                  <Notifications  sx={{ fontSize: "25px" }} />
+                </StyledBadge>
+              </IconButton>
+            } />
             <FormControl variant="standard" value={fullName}>
               <Select
                 value={fullName}
