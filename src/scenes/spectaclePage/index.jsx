@@ -67,7 +67,7 @@ const SpectaclePage = () => {
 
     return <>
           { role === 'ADMIN' && post()}
-          <EstreiaWidget />
+          {/* <EstreiaWidget /> */}
           {turmaInfo && <PersonagensWidget listaPersonagens={turmaInfo.espetaculo.personagens} /> }
           {isNonMobileScreens ? <Box m="2rem 0" /> : <Divider />}
           {turmaInfo && <TurmaPostsWidget picturePath={picturePath} turmaId={turmaInfo.id}/>}
